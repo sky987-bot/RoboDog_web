@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>RoboDog - Patrol</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Leaflet CSS -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="app-layout">
+
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <div class="logo-icon">
+                🐕
+            </div>
+
+            <div>
+
+                <h2>RoboDog</h2>
+
+                <span>
+                    Smart Guardian
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <p class="nav-title">
+                MAIN MENU
+            </p>
+
+
+            <a href="dashboard.html"
+               class="nav-link">
+
+                <span>🏠</span>
+                <span>Dashboard</span>
+
+            </a>
+
+
+            <a href="controller.html"
+               class="nav-link">
+
+                <span>🎮</span>
+                <span>Controller</span>
+
+            </a>
+
+
+            <a href="security.html"
+               class="nav-link">
+
+                <span>🛡️</span>
+                <span>Security</span>
+
+            </a>
+
+
+            <a href="patrol.html"
+               class="nav-link active">
+
+                <span>🚨</span>
+                <span>Patrol</span>
+
+            </a>
+
+
+            <a href="alerts.html"
+               class="nav-link">
+
+                <span>🔔</span>
+                <span>Alerts</span>
+
+            </a>
+
+
+            <p class="nav-title nav-title-bottom">
+                SYSTEM
+            </p>
+
+
+            <a href="login.html"
+               class="nav-link">
+
+                <span>🚪</span>
+                <span>Logout</span>
+
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-footer">
+
+            <div class="sidebar-version">
+                RoboDog v1.0
+            </div>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="main-content">
+
+
+        <!-- HEADER -->
+
+        <header class="dashboard-header">
+
+            <div class="header-left">
+
+                <h1>
+                    Patrol Management
+                </h1>
+
+                <p>
+                    Manage RoboDog patrol operations
+                </p>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <div class="online-status">
+
+                    <span class="status-dot"></span>
+
+                    <span>
+                        🟢 System Online
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- ================= PATROL OVERVIEW ================= -->
+
+        <section class="card">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        🚨 Patrol Overview
+                    </h2>
+
+                    <p>
+                        Current RoboDog patrol information
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="status-grid">
+
+
+                <!-- STATUS -->
+
+                <div class="status-card">
+
+                    <div class="status-card-icon">
+                        🚨
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Patrol Status
+                        </span>
+
+                        <strong id="patrolStatus">
+                            Inactive
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- MODE -->
+
+                <div class="status-card">
+
+                    <div class="status-card-icon">
+                        ⚙️
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Patrol Mode
+                        </span>
+
+                        <strong>
+                            Automatic
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PROGRESS -->
+
+                <div class="status-card">
+
+                    <div class="status-card-icon">
+                        📊
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Progress
+                        </span>
+
+                        <strong id="patrolProgress">
+                            0%
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= ROUTE ================= -->
+
+        <section class="card">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        🛣️ Patrol Route
+                    </h2>
+
+                    <p>
+                        Predefined RoboDog patrol route
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <strong>
+                    Current Route
+                </strong>
+
+                <span>
+                    Campus Main Route
+                </span>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <strong>
+                    Route
+                </strong>
+
+                <span id="patrolRoute">
+                    Loading...
+                </span>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <strong>
+                    Current Stop
+                </strong>
+
+                <span id="currentStop">
+                    Loading...
+                </span>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <strong>
+                    Next Stop
+                </strong>
+
+                <span id="nextStop">
+                    Loading...
+                </span>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <strong>
+                    Started
+                </strong>
+
+                <span id="patrolStarted">
+                    Not Started
+                </span>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= PATROL CONTROLS ================= -->
+
+        <section class="card">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        🎮 Patrol Controls
+                    </h2>
+
+                    <p>
+                        Start, stop and manage patrol movement
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="patrol-actions">
+
+                <button id="startPatrolBtn">
+
+                    ▶️ Start Patrol
+
+                </button>
+
+
+                <button id="stopPatrolBtn">
+
+                    ⏹️ Stop Patrol
+
+                </button>
+
+
+                <button id="nextStopBtn">
+
+                    ⏭️ Next Stop
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= MAP ================= -->
+
+        <section class="card">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        🗺️ Patrol Map
+                    </h2>
+
+                    <p>
+                        RoboDog patrol location
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div id="map"></div>
+
+        </section>
+
+
+
+        <!-- ================= PATROL INFORMATION ================= -->
+
+        <section class="card">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        📍 Patrol Information
+                    </h2>
+
+                    <p>
+                        Current patrol activity
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <strong>
+                    Robot
+                </strong>
+
+                <span>
+                    RoboDog-01
+                </span>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <strong>
+                    Patrol Type
+                </strong>
+
+                <span>
+                    Scheduled / Automatic
+                </span>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <strong>
+                    Area
+                </strong>
+
+                <span>
+                    Campus
+                </span>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <strong>
+                    Tracking
+                </strong>
+
+                <span>
+                    Enabled
+                </span>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+
+<!-- Leaflet JS -->
+
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
+
+<!-- Leaflet JS -->
+
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
+
+
+<!-- Dashboard JavaScript -->
+
+<script src="dashboard.js"></script>
+
+
+<!-- Patrol Map -->
+
+<script>
+
+    window.addEventListener("load", function () {
+
+        if (typeof L === "undefined") {
+
+            console.error("Leaflet did not load.");
+
+            return;
+
+        }
+
+        const patrolMap = L.map("map").setView(
+            [22.5726, 88.3639],
+            13
+        );
+
+
+        L.tileLayer(
+            "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+            {
+                attribution:
+                    '&copy; OpenStreetMap contributors'
+            }
+        ).addTo(patrolMap);
+
+
+        const robotMarker = L.marker(
+            [22.5726, 88.3639]
+        ).addTo(patrolMap);
+
+
+        robotMarker.bindPopup(
+            "🐕 RoboDog<br>Patrol Location"
+        );
+
+
+        setTimeout(function () {
+
+            patrolMap.invalidateSize();
+
+        }, 300);
+
+    });
+
+</script>
+
+
+
+</body>
+
+</html>

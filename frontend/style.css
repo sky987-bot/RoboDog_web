@@ -1,0 +1,1276 @@
+/* =========================================================
+   ROBODOG - PROFESSIONAL DASHBOARD STYLE
+   ========================================================= */
+
+
+/* =========================
+   GLOBAL RESET
+   ========================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f7fb;
+    color: #1e293b;
+    min-height: 100vh;
+}
+
+
+/* =========================
+   APP LAYOUT
+   ========================= */
+
+.app-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+
+/* =========================
+   SIDEBAR
+   ========================= */
+
+.sidebar {
+    width: 250px;
+    min-height: 100vh;
+
+    background: #0f172a;
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    z-index: 1000;
+
+    box-shadow: 4px 0 20px rgba(15, 23, 42, 0.12);
+}
+
+
+/* Logo */
+
+.sidebar-logo {
+    height: 90px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 20px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+
+.logo-icon {
+    width: 45px;
+    height: 45px;
+
+    border-radius: 12px;
+
+    background: #2563eb;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 24px;
+
+    box-shadow: 0 5px 15px rgba(37, 99, 235, 0.35);
+}
+
+
+.sidebar-logo h2 {
+    font-size: 20px;
+    margin-bottom: 3px;
+}
+
+
+.sidebar-logo span {
+    font-size: 11px;
+    color: #94a3b8;
+}
+
+
+/* Navigation */
+
+.sidebar-nav {
+    padding: 25px 14px;
+
+    flex: 1;
+}
+
+
+.nav-title {
+    font-size: 10px;
+    font-weight: bold;
+
+    letter-spacing: 1.5px;
+
+    color: #64748b;
+
+    margin: 5px 12px 12px;
+}
+
+
+.nav-title-bottom {
+    margin-top: 30px;
+}
+
+
+.nav-link {
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    text-decoration: none;
+
+    color: #cbd5e1;
+
+    padding: 13px 14px;
+
+    margin-bottom: 6px;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    transition: all 0.25s ease;
+}
+
+
+.nav-link span:first-child {
+    width: 24px;
+    text-align: center;
+    font-size: 17px;
+}
+
+
+.nav-link:hover {
+    background: #1e293b;
+    color: white;
+
+    transform: translateX(3px);
+}
+
+
+.nav-link.active {
+    background: #2563eb;
+    color: white;
+
+    box-shadow: 0 6px 15px rgba(37, 99, 235, 0.25);
+}
+
+
+/* Sidebar footer */
+
+.sidebar-footer {
+    padding: 20px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+
+.sidebar-version {
+    text-align: center;
+
+    font-size: 11px;
+
+    color: #64748b;
+}
+
+
+/* =========================
+   MAIN CONTENT
+   ========================= */
+
+.main-content {
+    margin-left: 250px;
+
+    width: calc(100% - 250px);
+
+    min-height: 100vh;
+
+    padding: 30px;
+}
+
+
+/* =========================
+   HEADER
+   ========================= */
+
+.dashboard-header {
+    min-height: 75px;
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 25px;
+
+    background: white;
+
+    padding: 20px 25px;
+
+    border-radius: 16px;
+
+    border: 1px solid #e2e8f0;
+
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.05);
+}
+
+
+.header-left h1 {
+    font-size: 25px;
+
+    color: #0f172a;
+
+    margin-bottom: 6px;
+}
+
+
+.header-left p {
+    color: #64748b;
+
+    font-size: 13px;
+}
+
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+
+/* Online status */
+
+.online-status {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    color: #16a34a;
+
+    background: #f0fdf4;
+
+    padding: 9px 14px;
+
+    border-radius: 20px;
+}
+
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+
+    background: #22c55e;
+
+    border-radius: 50%;
+
+    box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.12);
+}
+
+
+/* =========================
+   CARDS
+   ========================= */
+
+.card {
+    background: white;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 16px;
+
+    padding: 25px;
+
+    margin-bottom: 22px;
+
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.05);
+
+    transition: all 0.25s ease;
+}
+
+
+.card:hover {
+    box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08);
+}
+
+
+.card h2 {
+    font-size: 18px;
+
+    color: #0f172a;
+
+    margin-bottom: 7px;
+}
+
+
+/* Section heading */
+
+.section-header {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 22px;
+}
+
+
+.section-header p {
+    font-size: 13px;
+
+    color: #64748b;
+}
+
+
+/* =========================
+   STATUS GRID
+   ========================= */
+
+.status-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 16px;
+}
+
+
+.status-card {
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 18px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 13px;
+
+    transition: all 0.25s ease;
+}
+
+
+.status-card:hover {
+    border-color: #bfdbfe;
+
+    transform: translateY(-2px);
+}
+
+
+.status-card-icon {
+    width: 45px;
+    height: 45px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #eff6ff;
+
+    border-radius: 12px;
+
+    font-size: 20px;
+}
+
+
+.status-card span {
+    display: block;
+
+    font-size: 11px;
+
+    color: #64748b;
+
+    margin-bottom: 5px;
+}
+
+
+.status-card strong {
+    display: block;
+
+    font-size: 17px;
+
+    color: #0f172a;
+}
+
+
+/* =========================
+   STATUS ITEMS
+   ========================= */
+
+.status-item {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 14px 16px;
+
+    margin-bottom: 9px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 10px;
+}
+
+
+.status-item strong {
+    color: #475569;
+
+    font-size: 13px;
+}
+
+
+.status-item span {
+    color: #0f172a;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+/* =========================
+   ROBOT CONTROL
+   ========================= */
+
+.control-area,
+.control-panel {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    padding: 20px;
+}
+
+
+.middle-controls {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+}
+
+
+.control-btn,
+.stop-btn {
+    width: 115px;
+    min-height: 70px;
+
+    border: none;
+
+    border-radius: 14px;
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    transition: all 0.2s ease;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 5px;
+}
+
+
+.control-btn {
+    background: #eff6ff;
+
+    color: #2563eb;
+
+    border: 1px solid #bfdbfe;
+}
+
+
+.control-btn:hover {
+    background: #2563eb;
+
+    color: white;
+
+    transform: translateY(-3px);
+
+    box-shadow: 0 8px 18px rgba(37, 99, 235, 0.22);
+}
+
+
+.stop-btn {
+    background: #fee2e2;
+
+    color: #dc2626;
+
+    border: 1px solid #fecaca;
+}
+
+
+.stop-btn:hover {
+    background: #dc2626;
+
+    color: white;
+
+    transform: translateY(-3px);
+
+    box-shadow: 0 8px 18px rgba(220, 38, 38, 0.22);
+}
+
+
+.control-icon {
+    font-size: 21px;
+}
+
+
+.control-message {
+    margin-top: 15px;
+
+    padding: 13px;
+
+    text-align: center;
+
+    background: #f8fafc;
+
+    color: #64748b;
+
+    border-radius: 10px;
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   SECURITY
+   ========================= */
+
+.security-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 18px;
+}
+
+
+.security-box {
+    padding: 22px;
+
+    border-radius: 15px;
+
+    border: 1px solid #e2e8f0;
+
+    background: #ffffff;
+
+    text-align: center;
+
+    transition: all 0.25s ease;
+}
+
+
+.security-box:hover {
+    transform: translateY(-3px);
+
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.07);
+}
+
+
+.security-icon {
+    font-size: 28px;
+
+    margin-bottom: 10px;
+}
+
+
+.security-box h3 {
+    font-size: 15px;
+
+    color: #334155;
+
+    margin-bottom: 8px;
+}
+
+
+.security-number {
+    font-size: 32px;
+
+    font-weight: bold;
+
+    color: #0f172a;
+
+    margin-bottom: 4px;
+}
+
+
+.security-box > span {
+    font-size: 11px;
+
+    color: #64748b;
+}
+
+
+/* Security details */
+
+.security-details {
+    margin-top: 18px;
+}
+
+
+.security-details > div {
+    display: flex;
+
+    justify-content: space-between;
+
+    padding: 9px 0;
+
+    border-bottom: 1px solid #f1f5f9;
+
+    font-size: 12px;
+}
+
+
+.security-details strong {
+    color: #64748b;
+}
+
+
+.security-details span {
+    color: #0f172a;
+
+    font-weight: 600;
+}
+
+
+/* Security actions */
+
+.security-actions {
+    display: flex;
+
+    gap: 8px;
+
+    margin-top: 15px;
+}
+
+
+.security-actions button,
+.disaster-actions button {
+    flex: 1;
+
+    width: auto;
+
+    padding: 10px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    background: #2563eb;
+
+    color: white;
+
+    transition: 0.2s;
+}
+
+
+.security-actions button:hover,
+.disaster-actions button:hover {
+    opacity: 0.88;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================
+   DISASTER
+   ========================= */
+
+.disaster-status-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 12px;
+}
+
+
+.disaster-actions {
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 15px;
+}
+
+
+.disaster-actions button {
+    max-width: 200px;
+}
+
+
+/* =========================
+   PATROL
+   ========================= */
+
+.patrol-actions {
+    display: flex;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
+}
+
+
+.patrol-actions button {
+    width: auto;
+
+    min-width: 145px;
+
+    padding: 12px 20px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #2563eb;
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+
+.patrol-actions button:hover {
+    background: #1d4ed8;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 6px 15px rgba(37, 99, 235, 0.2);
+}
+
+
+/* =========================
+   MAP
+   ========================= */
+
+#map {
+    width: 100%;
+
+    height: 450px;
+
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    margin-top: 10px;
+
+    border: 1px solid #e2e8f0;
+}
+
+
+/* =========================
+   CAMERA
+   ========================= */
+
+.camera-box {
+    height: 350px;
+
+    background: #0f172a;
+
+    border-radius: 14px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: #94a3b8;
+
+    border: 1px solid #1e293b;
+}
+
+
+.camera-box p {
+    font-size: 14px;
+}
+
+
+/* =========================
+   ALERT HISTORY
+   ========================= */
+
+.alert-history {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+
+.alert-history-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 16px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 12px;
+
+    transition: 0.2s;
+}
+
+
+.alert-history-item:hover {
+    background: #f1f5f9;
+
+    transform: translateX(3px);
+}
+
+
+.alert-icon {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 10px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #fee2e2;
+
+    font-size: 19px;
+
+    flex-shrink: 0;
+}
+
+
+.alert-content {
+    flex: 1;
+}
+
+
+.alert-content strong {
+    display: block;
+
+    font-size: 14px;
+
+    color: #0f172a;
+
+    margin-bottom: 5px;
+}
+
+
+.alert-content p {
+    font-size: 12px;
+
+    color: #64748b;
+}
+
+
+.alert-time {
+    font-size: 11px;
+
+    color: #94a3b8;
+}
+
+
+/* Empty alerts */
+
+.alert-empty {
+    text-align: center;
+
+    padding: 45px 20px;
+
+    color: #94a3b8;
+}
+
+
+.alert-empty span {
+    display: block;
+
+    font-size: 35px;
+
+    margin-bottom: 10px;
+}
+
+
+.alert-empty p {
+    font-size: 13px;
+}
+
+
+/* =========================
+   BUTTONS
+   ========================= */
+
+button {
+    font-family: inherit;
+}
+
+
+/* =========================
+   OLD LOGIN / REGISTER PAGE
+   ========================= */
+
+.container {
+    width: 400px;
+
+    max-width: 90%;
+
+    background: white;
+
+    padding: 35px;
+
+    border-radius: 18px;
+
+    box-shadow: 0 10px 35px rgba(15, 23, 42, 0.12);
+
+    text-align: center;
+
+    border: 1px solid #e2e8f0;
+}
+
+
+.container h1 {
+    color: #0f172a;
+
+    margin-bottom: 10px;
+}
+
+
+.container h2 {
+    color: #475569;
+
+    margin-bottom: 25px;
+
+    font-size: 19px;
+}
+
+
+input {
+    width: 100%;
+
+    padding: 13px 14px;
+
+    margin-bottom: 15px;
+
+    border: 1px solid #cbd5e1;
+
+    border-radius: 9px;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition: 0.2s;
+}
+
+
+input:focus {
+    border-color: #2563eb;
+
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+
+.container button {
+    width: 100%;
+
+    padding: 13px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #2563eb;
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+.container button:hover {
+    background: #1d4ed8;
+
+    transform: translateY(-1px);
+}
+
+
+#message {
+    margin-top: 18px;
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   RESPONSIVE DESIGN
+   ========================= */
+
+@media (max-width: 1000px) {
+
+    .status-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+    .security-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .disaster-status-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 750px) {
+
+    .sidebar {
+        width: 70px;
+    }
+
+
+    .sidebar-logo {
+        justify-content: center;
+
+        padding: 10px;
+    }
+
+
+    .sidebar-logo > div:last-child,
+    .nav-link span:last-child,
+    .nav-title,
+    .sidebar-footer {
+        display: none;
+    }
+
+
+    .nav-link {
+        justify-content: center;
+
+        padding: 13px 8px;
+    }
+
+
+    .nav-link span:first-child {
+        font-size: 19px;
+    }
+
+
+    .main-content {
+        margin-left: 70px;
+
+        width: calc(100% - 70px);
+
+        padding: 18px;
+    }
+
+
+    .dashboard-header {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+
+
+    .status-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .middle-controls {
+        gap: 7px;
+    }
+
+
+    .control-btn,
+    .stop-btn {
+        width: 90px;
+    }
+
+
+    #map {
+        height: 350px;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .main-content {
+        padding: 12px;
+    }
+
+
+    .card {
+        padding: 18px;
+    }
+
+
+    .header-left h1 {
+        font-size: 21px;
+    }
+
+
+    .control-btn,
+    .stop-btn {
+        width: 75px;
+
+        min-height: 65px;
+
+        font-size: 11px;
+    }
+
+
+    .control-icon {
+        font-size: 18px;
+    }
+
+
+    .security-actions {
+        flex-direction: column;
+    }
+
+
+    .patrol-actions {
+        flex-direction: column;
+    }
+
+
+    .patrol-actions button {
+        width: 100%;
+    }
+
+
+    #map {
+        height: 300px;
+    }
+
+}
+.register-link,
+.login-link {
+    margin-top: 18px;
+    font-size: 13px;
+    color: #64748b;
+}
+
+.register-link a,
+.login-link a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link a:hover,
+.login-link a:hover {
+    text-decoration: underline;
+}
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-right: 5px;
+}
+
+.user-info strong {
+    font-size: 13px;
+    color: #0f172a;
+}
+
+.user-info span {
+    font-size: 11px;
+    color: #64748b;
+    margin-top: 3px;
+}
+.forgot-link {
+    text-align: right;
+    margin-top: -5px;
+    margin-bottom: 15px;
+    font-size: 13px;
+}
+
+.forgot-link a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.forgot-link a:hover {
+    text-decoration: underline;
+}
+.forgot-description {
+    font-size: 13px;
+    color: #64748b;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}

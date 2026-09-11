@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>RoboDog - Security</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+<div class="app-layout">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <div class="logo-icon">
+                🐕
+            </div>
+
+            <div>
+                <h2>RoboDog</h2>
+                <span>Smart Guardian</span>
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <p class="nav-title">
+                MAIN MENU
+            </p>
+
+
+            <a href="dashboard.html"
+               class="nav-link">
+
+                <span>🏠</span>
+                <span>Dashboard</span>
+
+            </a>
+
+
+            <a href="controller.html"
+               class="nav-link">
+
+                <span>🎮</span>
+                <span>Controller</span>
+
+            </a>
+
+
+            <a href="security.html"
+               class="nav-link active">
+
+                <span>🛡️</span>
+                <span>Security</span>
+
+            </a>
+
+
+            <a href="patrol.html"
+               class="nav-link">
+
+                <span>🚨</span>
+                <span>Patrol</span>
+
+            </a>
+
+
+            <a href="alerts.html"
+               class="nav-link">
+
+                <span>🔔</span>
+                <span>Alerts</span>
+
+            </a>
+
+
+            <p class="nav-title nav-title-bottom">
+                SYSTEM
+            </p>
+
+
+            <a href="login.html"
+               class="nav-link">
+
+                <span>🚪</span>
+                <span>Logout</span>
+
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-footer">
+
+            <div class="sidebar-version">
+                RoboDog v1.0
+            </div>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+
+        <!-- HEADER -->
+
+        <header class="dashboard-header">
+
+            <div class="header-left">
+
+                <h1>
+                    Security Monitoring
+                </h1>
+
+                <p>
+                    Monitor intruders, disasters and security alerts
+                </p>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <div class="online-status">
+
+                    <span class="status-dot"></span>
+
+                    <span>
+                        🟢 System Online
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- SECURITY OVERVIEW -->
+
+        <section class="card">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        🛡️ Security Overview
+                    </h2>
+
+                    <p>
+                        Current security situation
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="security-grid">
+
+
+                <!-- INTRUDER -->
+
+                <div class="security-box intruder-box">
+
+                    <div class="security-icon">
+                        👤
+                    </div>
+
+                    <h3>
+                        Intruder
+                    </h3>
+
+                    <p class="security-number"
+                       id="intruderCount">
+
+                        0
+
+                    </p>
+
+                    <span>
+                        Detected
+                    </span>
+
+
+                    <div class="security-details">
+
+                        <div>
+
+                            <strong>
+                                Status
+                            </strong>
+
+                            <span id="intruderStatus">
+                                Checking...
+                            </span>
+
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                Suspicion
+                            </strong>
+
+                            <span id="suspicionRate">
+                                0%
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="security-actions">
+
+                        <button id="testIntruderBtn">
+
+                            🚨 Test Intruder
+
+                        </button>
+
+
+                        <button id="resetIntruderBtn">
+
+                            ↩️ Reset
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- DISASTER -->
+
+                <div class="security-box disaster-box">
+
+                    <div class="security-icon">
+                        🚨
+                    </div>
+
+                    <h3>
+                        Disaster
+                    </h3>
+
+                    <p class="security-number"
+                       id="disasterStatus">
+
+                        Safe
+
+                    </p>
+
+                    <span>
+                        Current Status
+                    </span>
+
+                </div>
+
+
+
+                <!-- ALERT -->
+
+                <div class="security-box alert-box">
+
+                    <div class="security-icon">
+                        🔔
+                    </div>
+
+                    <h3>
+                        Alerts
+                    </h3>
+
+                    <p class="security-number"
+                       id="alertCount">
+
+                        0
+
+                    </p>
+
+                    <span>
+                        Active Alerts
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- INTRUDER DETECTION -->
+
+        <section class="card">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        👤 Intruder Detection
+                    </h2>
+
+                    <p>
+                        Monitor suspicious people detected by RoboDog
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="status-grid">
+
+
+                <div class="status-card">
+
+                    <div class="status-card-icon">
+                        👤
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Detected People
+                        </span>
+
+                        <strong id="securityIntruderCount">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="status-card">
+
+                    <div class="status-card-icon">
+                        🚨
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Detection Status
+                        </span>
+
+                        <strong id="securityIntruderStatus">
+                            No Intruder
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="status-card">
+
+                    <div class="status-card-icon">
+                        📊
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Suspicion Rate
+                        </span>
+
+                        <strong id="securitySuspicionRate">
+                            0%
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- DISASTER DETECTION -->
+
+        <section class="card">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        🌍 Disaster Detection
+                    </h2>
+
+                    <p>
+                        Monitor possible disaster events
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="disaster-status-grid">
+
+
+                <div class="status-item">
+
+                    <strong>
+                        Status
+                    </strong>
+
+                    <span id="disasterDetectionStatus">
+                        Checking...
+                    </span>
+
+                </div>
+
+
+                <div class="status-item">
+
+                    <strong>
+                        Disaster Type
+                    </strong>
+
+                    <span id="disasterType">
+                        None
+                    </span>
+
+                </div>
+
+
+                <div class="status-item">
+
+                    <strong>
+                        Confidence
+                    </strong>
+
+                    <span id="disasterConfidence">
+                        0%
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="disaster-actions">
+
+                <button id="testDisasterBtn">
+
+                    🚨 Test Disaster
+
+                </button>
+
+
+                <button id="resetDisasterBtn">
+
+                    ↩️ Reset Disaster
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- SECURITY INFORMATION -->
+
+        <section class="card">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        🔐 Security Status
+                    </h2>
+
+                    <p>
+                        Overall RoboDog security state
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <strong>
+                    Security Mode
+                </strong>
+
+                <span>
+                    Active
+                </span>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <strong>
+                    Intrusion Detection
+                </strong>
+
+                <span>
+                    Enabled
+                </span>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <strong>
+                    Disaster Monitoring
+                </strong>
+
+                <span>
+                    Enabled
+                </span>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <strong>
+                    Automatic Alerts
+                </strong>
+
+                <span>
+                    Enabled
+                </span>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+<script>
+const API = "http://127.0.0.1:5000/api/robot";
+
+/* =========================
+   INTRUDER
+========================= */
+
+async function loadIntruder() {
+    try {
+        const response = await fetch(API + "/intruder/status");
+        const data = await response.json();
+
+        document.getElementById("intruderCount").textContent = data.count;
+        document.getElementById("intruderStatus").textContent = data.status;
+        document.getElementById("suspicionRate").textContent =
+            data.suspicion_rate + "%";
+
+    } catch (error) {
+        console.error("Intruder Error:", error);
+    }
+}
+
+
+/* TEST INTRUDER */
+
+const testIntruderBtn = document.getElementById("testIntruderBtn");
+
+if (testIntruderBtn) {
+    testIntruderBtn.addEventListener("click", async function () {
+
+        const response = await fetch(
+            API + "/intruder/test",
+            {
+                method: "POST"
+            }
+        );
+
+        const data = await response.json();
+
+        document.getElementById("intruderCount").textContent =
+            data.count;
+
+        document.getElementById("intruderStatus").textContent =
+            data.status;
+
+        document.getElementById("suspicionRate").textContent =
+            data.suspicion_rate + "%";
+
+        loadAlerts();
+    });
+}
+
+
+/* RESET INTRUDER */
+
+const resetIntruderBtn = document.getElementById("resetIntruderBtn");
+
+if (resetIntruderBtn) {
+    resetIntruderBtn.addEventListener("click", async function () {
+
+        await fetch(
+            API + "/intruder/reset",
+            {
+                method: "POST"
+            }
+        );
+
+        loadIntruder();
+    });
+}
+
+
+/* =========================
+   DISASTER
+========================= */
+
+async function loadDisaster() {
+
+    try {
+
+        const response = await fetch(
+            API + "/disaster/status"
+        );
+
+        const data = await response.json();
+
+        document.getElementById("disasterStatus").textContent =
+            data.status;
+
+        document.getElementById("disasterType").textContent =
+            data.type;
+
+        document.getElementById("disasterConfidence").textContent =
+            data.confidence + "%";
+
+    } catch (error) {
+        console.error("Disaster Error:", error);
+    }
+}
+
+
+/* TEST DISASTER */
+
+const testDisasterBtn =
+    document.getElementById("testDisasterBtn");
+
+if (testDisasterBtn) {
+
+    testDisasterBtn.addEventListener("click", async function () {
+
+        const response = await fetch(
+            API + "/disaster/test",
+            {
+                method: "POST"
+            }
+        );
+
+        const data = await response.json();
+
+        document.getElementById("disasterStatus").textContent =
+            data.status;
+
+        document.getElementById("disasterType").textContent =
+            data.type;
+
+        document.getElementById("disasterConfidence").textContent =
+            data.confidence + "%";
+
+        loadAlerts();
+    });
+}
+
+
+/* RESET DISASTER */
+
+const resetDisasterBtn =
+    document.getElementById("resetDisasterBtn");
+
+if (resetDisasterBtn) {
+
+    resetDisasterBtn.addEventListener("click", async function () {
+
+        await fetch(
+            API + "/disaster/reset",
+            {
+                method: "POST"
+            }
+        );
+
+        loadDisaster();
+    });
+}
+
+
+/* =========================
+   ALERTS
+========================= */
+
+async function loadAlerts() {
+
+    try {
+
+        const response = await fetch(
+            API + "/alerts"
+        );
+
+        const data = await response.json();
+
+        const alertCount =
+            document.getElementById("alertCount");
+
+        if (alertCount) {
+            alertCount.textContent = data.count;
+        }
+
+    } catch (error) {
+        console.error("Alert Error:", error);
+    }
+}
+
+
+/* =========================
+   PAGE LOAD
+========================= */
+
+loadIntruder();
+loadDisaster();
+loadAlerts();
+</script>
+
+</body>
+
+</html>

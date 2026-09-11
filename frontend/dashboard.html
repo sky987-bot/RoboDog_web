@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>RoboDog - Dashboard</title>
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Leaflet Map CSS -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="app-layout">
+
+
+    <!-- =====================================
+         SIDEBAR
+    ====================================== -->
+
+    <aside class="sidebar">
+
+        <!-- Logo -->
+        <div class="sidebar-logo">
+
+            <div class="logo-icon">
+                🐕
+            </div>
+
+            <div>
+                <h2>RoboDog</h2>
+                <span>Smart Guardian</span>
+            </div>
+
+        </div>
+
+
+        <!-- Navigation -->
+
+        <nav class="sidebar-nav">
+
+            <p class="nav-title">
+                MAIN MENU
+            </p>
+
+
+            <a href="dashboard.html"
+               class="nav-link active">
+
+                <span>🏠</span>
+                <span>Dashboard</span>
+
+            </a>
+
+
+            <a href="controller.html"
+               class="nav-link">
+
+                <span>🎮</span>
+                <span>Controller</span>
+
+            </a>
+
+
+            <a href="security.html"
+               class="nav-link">
+
+                <span>🛡️</span>
+                <span>Security</span>
+
+            </a>
+
+
+            <a href="patrol.html"
+               class="nav-link">
+
+                <span>🚨</span>
+                <span>Patrol</span>
+
+            </a>
+
+
+            <a href="alerts.html"
+               class="nav-link">
+
+                <span>🔔</span>
+                <span>Alerts</span>
+
+            </a>
+
+
+            <p class="nav-title nav-title-bottom">
+                SYSTEM
+            </p>
+
+
+            <a href="login.html"
+               class="nav-link">
+
+                <span>🚪</span>
+                <span>Logout</span>
+
+            </a>
+
+        </nav>
+
+
+        <!-- Sidebar Footer -->
+
+        <div class="sidebar-footer">
+
+            <div class="sidebar-version">
+                RoboDog v1.0
+            </div>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =====================================
+         MAIN CONTENT
+    ====================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =================================
+             TOP HEADER
+        ================================== -->
+
+        <header class="dashboard-header">
+
+
+            <div class="header-left">
+
+                <div>
+
+                    <h1>
+                        Dashboard
+                    </h1>
+
+                    <!-- Logged-in user's name -->
+                    <p id="welcomeUser">
+                        Welcome
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <!-- Robot Online Status -->
+
+                <div class="online-status">
+
+                    <span class="status-dot"></span>
+
+                    <span id="robotStatus">
+                        ● Offline
+                    </span>
+
+                </div>
+
+
+                <!-- Logged-in User -->
+
+                <div class="user-info">
+
+                    <div class="user-avatar">
+                        👤
+                    </div>
+
+                    <div>
+
+                        <strong id="userName">
+                            Operator
+                        </strong>
+
+                        <small id="userEmail">
+                            Security Control
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Logout Button -->
+
+                <button
+                    id="logoutBtn"
+                    class="logout-btn">
+
+                    Logout
+
+                </button>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================
+             ROBOT STATUS
+        ================================== -->
+
+        <section class="card">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        🤖 Robot Status
+                    </h2>
+
+                    <p>
+                        Current RoboDog system status
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="status-grid">
+
+
+                <!-- Connection -->
+
+                <div class="status-card">
+
+                    <div class="status-card-icon">
+                        📡
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Connection
+                        </span>
+
+                        <strong id="robotConnection">
+                            Checking...
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Current Command -->
+
+                <div class="status-card">
+
+                    <div class="status-card-icon">
+                        🎮
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Current Command
+                        </span>
+
+                        <strong id="currentCommand">
+                            Checking...
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Battery -->
+
+                <div class="status-card">
+
+                    <div class="status-card-icon">
+                        🔋
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Battery
+                        </span>
+
+                        <strong id="batteryLevel">
+                            Checking...
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================
+             ROBOT CONTROL
+        ================================== -->
+
+        <section class="card">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        🎮 Robot Control
+                    </h2>
+
+                    <p>
+                        Control RoboDog movement
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="control-area">
+
+
+                <!-- Forward -->
+
+                <button
+                    class="control-btn"
+                    id="forwardBtn">
+
+                    <span class="control-icon">
+                        ▲
+                    </span>
+
+                    <span>
+                        Forward
+                    </span>
+
+                </button>
+
+
+                <!-- Left / Stop / Right -->
+
+                <div class="middle-controls">
+
+
+                    <button
+                        class="control-btn"
+                        id="leftBtn">
+
+                        <span class="control-icon">
+                            ◀
+                        </span>
+
+                        <span>
+                            Left
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        class="stop-btn"
+                        id="stopBtn">
+
+                        <span class="control-icon">
+                            ■
+                        </span>
+
+                        <span>
+                            STOP
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        class="control-btn"
+                        id="rightBtn">
+
+                        <span class="control-icon">
+                            ▶
+                        </span>
+
+                        <span>
+                            Right
+                        </span>
+
+                    </button>
+
+
+                </div>
+
+
+                <!-- Backward -->
+
+                <button
+                    class="control-btn"
+                    id="backwardBtn">
+
+                    <span class="control-icon">
+                        ▼
+                    </span>
+
+                    <span>
+                        Backward
+                    </span>
+
+                </button>
+
+
+            </div>
+
+
+            <div
+                class="control-message"
+                id="controlMessage">
+
+                Robot is ready for commands.
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================
+             SECURITY MONITORING
+        ================================== -->
+
+        <section class="card">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        🛡️ Security Monitoring
+                    </h2>
+
+                    <p>
+                        Live security overview
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="security-grid">
+
+
+                <!-- Intruder -->
+
+                <div class="security-box intruder-box">
+
+                    <div class="security-icon">
+                        👤
+                    </div>
+
+                    <h3>
+                        Intruder
+                    </h3>
+
+                    <p
+                        class="security-number"
+                        id="intruderCount">
+
+                        0
+
+                    </p>
+
+                    <span>
+                        Detected
+                    </span>
+
+
+                    <div class="security-details">
+
+                        <div>
+
+                            <strong>
+                                Status
+                            </strong>
+
+                            <span id="intruderStatus">
+                                Checking...
+                            </span>
+
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                Suspicion
+                            </strong>
+
+                            <span id="suspicionRate">
+                                0%
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="security-actions">
+
+                        <button
+                            id="testIntruderBtn">
+
+                            🚨 Test Intruder
+
+                        </button>
+
+
+                        <button
+                            id="resetIntruderBtn">
+
+                            ↩️ Reset
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Disaster -->
+
+                <div class="security-box disaster-box">
+
+                    <div class="security-icon">
+                        🚨
+                    </div>
+
+                    <h3>
+                        Disaster
+                    </h3>
+
+                    <p
+                        class="security-number"
+                        id="disasterStatus">
+
+                        Safe
+
+                    </p>
+
+                    <span>
+                        Current Status
+                    </span>
+
+                </div>
+
+
+
+                <!-- Alerts -->
+
+                <div class="security-box alert-box">
+
+                    <div class="security-icon">
+                        🔔
+                    </div>
+
+                    <h3>
+                        Alerts
+                    </h3>
+
+                    <p
+                        class="security-number"
+                        id="alertCount">
+
+                        0
+
+                    </p>
+
+                    <span>
+                        Active Alerts
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================
+             ALERT HISTORY
+        ================================== -->
+
+        <section class="card">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        🔔 Alert History
+                    </h2>
+
+                    <p>
+                        Recent security incidents
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="alerts.html"
+                    class="view-all-btn">
+
+                    View All
+
+                </a>
+
+            </div>
+
+
+            <div
+                id="alertHistory"
+                class="alert-history">
+
+                Loading alerts...
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================
+             DISASTER DETECTION
+        ================================== -->
+
+        <section class="card">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        🌍 Disaster Detection
+                    </h2>
+
+                    <p>
+                        AI-based disaster monitoring
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="disaster-status-grid">
+
+
+                <!-- Status -->
+
+                <div class="status-item">
+
+                    <strong>
+                        Status
+                    </strong>
+
+                    <span id="disasterDetectionStatus">
+                        Checking...
+                    </span>
+
+                </div>
+
+
+                <!-- Type -->
+
+                <div class="status-item">
+
+                    <strong>
+                        Type
+                    </strong>
+
+                    <span id="disasterType">
+                        None
+                    </span>
+
+                </div>
+
+
+                <!-- Confidence -->
+
+                <div class="status-item">
+
+                    <strong>
+                        Confidence
+                    </strong>
+
+                    <span id="disasterConfidence">
+                        0%
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="disaster-actions">
+
+                <button id="testDisasterBtn">
+
+                    🚨 Test Disaster
+
+                </button>
+
+
+                <button id="resetDisasterBtn">
+
+                    ↩️ Reset Disaster
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================
+             PATROL SYSTEM
+        ================================== -->
+
+        <section class="card">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        🚨 Patrol System
+                    </h2>
+
+                    <p>
+                        Manage RoboDog patrol operations
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="patrol-info-grid">
+
+
+                <!-- Current Route -->
+
+                <div class="status-item">
+
+                    <strong>
+                        Current Route
+                    </strong>
+
+                    <span id="currentRoute">
+                        Campus Main Route
+                    </span>
+
+                </div>
+
+
+                <!-- Patrol Route -->
+
+                <div class="status-item">
+
+                    <strong>
+                        Patrol Route
+                    </strong>
+
+                    <span id="patrolRoute">
+                        Loading...
+                    </span>
+
+                </div>
+
+
+                <!-- Current Stop -->
+
+                <div class="status-item">
+
+                    <strong>
+                        Current Stop
+                    </strong>
+
+                    <span id="currentStop">
+                        Loading...
+                    </span>
+
+                </div>
+
+
+                <!-- Next Stop -->
+
+                <div class="status-item">
+
+                    <strong>
+                        Next Stop
+                    </strong>
+
+                    <span id="nextStop">
+                        Loading...
+                    </span>
+
+                </div>
+
+
+                <!-- Progress -->
+
+                <div class="status-item">
+
+                    <strong>
+                        Progress
+                    </strong>
+
+                    <span id="patrolProgress">
+                        0%
+                    </span>
+
+                </div>
+
+
+                <!-- Patrol Status -->
+
+                <div class="status-item">
+
+                    <strong>
+                        Patrol Status
+                    </strong>
+
+                    <span id="patrolStatus">
+                        Inactive
+                    </span>
+
+                </div>
+
+
+                <!-- Mode -->
+
+                <div class="status-item">
+
+                    <strong>
+                        Mode
+                    </strong>
+
+                    <span id="patrolMode">
+                        Automatic
+                    </span>
+
+                </div>
+
+
+                <!-- Started -->
+
+                <div class="status-item">
+
+                    <strong>
+                        Started
+                    </strong>
+
+                    <span id="patrolStarted">
+                        Not Started
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="patrol-actions">
+
+                <button id="startPatrolBtn">
+
+                    ▶️ Start Patrol
+
+                </button>
+
+
+                <button id="stopPatrolBtn">
+
+                    ⏹️ Stop Patrol
+
+                </button>
+
+
+                <button id="nextStopBtn">
+
+                    ⏭️ Next Stop
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================
+             PATROL MAP
+        ================================== -->
+
+        <section class="card">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        🗺️ Patrol Map
+                    </h2>
+
+                    <p>
+                        RoboDog patrol route and location
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div id="map"></div>
+
+        </section>
+
+
+
+        <!-- =================================
+             CAMERA
+        ================================== -->
+
+        <section class="card">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        📷 Camera
+                    </h2>
+
+                    <p>
+                        Live camera feed
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="camera-box">
+
+                <div class="camera-placeholder">
+
+                    <div class="camera-icon">
+                        📷
+                    </div>
+
+                    <h3>
+                        Camera Feed
+                    </h3>
+
+                    <p>
+                        Camera feed will appear here
+                    </p>
+
+                    <small>
+                        Camera module will be integrated later
+                    </small>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+
+<!-- =====================================
+     LEAFLET JS
+====================================== -->
+
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
+
+
+
+<!-- =====================================
+     DASHBOARD JS
+====================================== -->
+
+<script src="dashboard.js"></script>
+
+
+<!-- =====================================
+     LOGGED-IN USER
+====================================== -->
+
+<script>
+
+const savedUser = localStorage.getItem("user");
+
+
+/* If user is not logged in */
+
+if (!savedUser) {
+
+    window.location.href = "login.html";
+
+}
+
+
+/* If user is logged in */
+
+else {
+
+    const user = JSON.parse(savedUser);
+
+
+    // Show user's name
+    document.getElementById("userName").textContent =
+        user.name;
+
+
+    // Show user's email
+    document.getElementById("userEmail").textContent =
+        user.email;
+
+
+    // Welcome message
+    document.getElementById("welcomeUser").textContent =
+        "Welcome, " + user.name;
+
+}
+
+
+
+/* =====================================
+   LOGOUT
+===================================== */
+
+const logoutBtn =
+    document.getElementById("logoutBtn");
+
+
+if (logoutBtn) {
+
+    logoutBtn.addEventListener(
+        "click",
+        function () {
+
+            // Remove logged-in user
+            localStorage.removeItem("user");
+
+            // Go to login
+            window.location.href = "login.html";
+
+        }
+    );
+
+}
+
+</script>
+
+
+</body>
+
+</html>

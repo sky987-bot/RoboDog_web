@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>RoboDog - Alerts</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+<div class="app-layout">
+
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <div class="logo-icon">
+                🐕
+            </div>
+
+            <div>
+                <h2>RoboDog</h2>
+
+                <span>
+                    Smart Guardian
+                </span>
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <p class="nav-title">
+                MAIN MENU
+            </p>
+
+
+            <a href="dashboard.html"
+               class="nav-link">
+
+                <span>🏠</span>
+                <span>Dashboard</span>
+
+            </a>
+
+
+            <a href="controller.html"
+               class="nav-link">
+
+                <span>🎮</span>
+                <span>Controller</span>
+
+            </a>
+
+
+            <a href="security.html"
+               class="nav-link">
+
+                <span>🛡️</span>
+                <span>Security</span>
+
+            </a>
+
+
+            <a href="patrol.html"
+               class="nav-link">
+
+                <span>🚨</span>
+                <span>Patrol</span>
+
+            </a>
+
+
+            <a href="alerts.html"
+               class="nav-link active">
+
+                <span>🔔</span>
+                <span>Alerts</span>
+
+            </a>
+
+
+            <p class="nav-title nav-title-bottom">
+                SYSTEM
+            </p>
+
+
+            <a href="login.html"
+               class="nav-link">
+
+                <span>🚪</span>
+                <span>Logout</span>
+
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-footer">
+
+            <div class="sidebar-version">
+                RoboDog v1.0
+            </div>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="main-content">
+
+
+        <!-- HEADER -->
+
+        <header class="dashboard-header">
+
+            <div class="header-left">
+
+                <h1>
+                    Alerts & Incidents
+                </h1>
+
+                <p>
+                    Monitor and review RoboDog security alerts
+                </p>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <div class="online-status">
+
+                    <span class="status-dot"></span>
+
+                    <span>
+                        🟢 System Online
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- ================= ALERT OVERVIEW ================= -->
+
+        <section class="card">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        🔔 Alert Overview
+                    </h2>
+
+                    <p>
+                        Current security alert summary
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="status-grid">
+
+
+                <!-- TOTAL -->
+
+                <div class="status-card">
+
+                    <div class="status-card-icon">
+                        🔔
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Total Alerts
+                        </span>
+
+                        <strong id="totalAlerts">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- INTRUDER -->
+
+                <div class="status-card">
+
+                    <div class="status-card-icon">
+                        👤
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Intruder Alerts
+                        </span>
+
+                        <strong id="intruderAlerts">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DISASTER -->
+
+                <div class="status-card">
+
+                    <div class="status-card-icon">
+                        🚨
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Disaster Alerts
+                        </span>
+
+                        <strong id="disasterAlerts">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= ALERT HISTORY ================= -->
+
+        <section class="card">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        📋 Alert History
+                    </h2>
+
+                    <p>
+                        Recent security incidents detected by RoboDog
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div id="alertHistory"
+                 class="alert-history">
+
+                <div class="alert-empty">
+
+                    <span>
+                        🔔
+                    </span>
+
+                    <p>
+                        Loading alerts...
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= ALERT INFORMATION ================= -->
+
+        <section class="card">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        🚨 Alert Monitoring
+                    </h2>
+
+                    <p>
+                        RoboDog automatic security monitoring
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <strong>
+                    Intruder Detection
+                </strong>
+
+                <span>
+                    Enabled
+                </span>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <strong>
+                    Disaster Detection
+                </strong>
+
+                <span>
+                    Enabled
+                </span>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <strong>
+                    Automatic Alert
+                </strong>
+
+                <span>
+                    Enabled
+                </span>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <strong>
+                    Email Notification
+                </strong>
+
+                <span>
+                    Coming Soon
+                </span>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+
+<script>
+
+async function loadAlerts() {
+
+    try {
+
+        const response = await fetch(
+            "http://127.0.0.1:5000/api/robot/alerts"
+        );
+
+        const data = await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Unable to load alerts"
+            );
+
+        }
+
+
+        const alerts = data.alerts || [];
+
+
+        // Total alerts
+
+        document.getElementById(
+            "totalAlerts"
+        ).textContent = alerts.length;
+
+
+        // Count alert types
+
+        let intruderCount = 0;
+
+        let disasterCount = 0;
+
+
+        alerts.forEach(function(alert) {
+
+            if (alert.type === "Intruder") {
+
+                intruderCount++;
+
+            }
+
+
+            if (alert.type === "Disaster") {
+
+                disasterCount++;
+
+            }
+
+        });
+
+
+        document.getElementById(
+            "intruderAlerts"
+        ).textContent = intruderCount;
+
+
+        document.getElementById(
+            "disasterAlerts"
+        ).textContent = disasterCount;
+
+
+
+        // Alert history
+
+        const history =
+            document.getElementById(
+                "alertHistory"
+            );
+
+
+        if (alerts.length === 0) {
+
+            history.innerHTML = `
+
+                <div class="alert-empty">
+
+                    <span>🔔</span>
+
+                    <p>
+                        No alerts detected
+                    </p>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        history.innerHTML = "";
+
+
+        alerts.slice().reverse().forEach(
+            function(alert) {
+
+
+                const alertItem =
+                    document.createElement("div");
+
+
+                alertItem.className =
+                    "alert-history-item";
+
+
+                let icon = "🔔";
+
+
+                if (alert.type === "Intruder") {
+
+                    icon = "🚨";
+
+                }
+
+
+                if (alert.type === "Disaster") {
+
+                    icon = "🔥";
+
+                }
+
+
+                alertItem.innerHTML = `
+
+                    <div class="alert-icon">
+
+                        ${icon}
+
+                    </div>
+
+
+                    <div class="alert-content">
+
+                        <strong>
+                            ${alert.type}
+                        </strong>
+
+                        <p>
+                            ${alert.message}
+                        </p>
+
+                    </div>
+
+
+                    <div class="alert-time">
+
+                        Security Alert
+
+                    </div>
+
+                `;
+
+
+                history.appendChild(
+                    alertItem
+                );
+
+            }
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Alert Error:",
+            error
+        );
+
+
+        document.getElementById(
+            "alertHistory"
+        ).innerHTML = `
+
+            <div class="alert-empty">
+
+                <span>⚠️</span>
+
+                <p>
+                    Unable to load alerts
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+loadAlerts();
+
+</script>
+
+
+</body>
+
+</html>
