@@ -1,6 +1,6 @@
-/* =========================
-   LOGGED-IN USER
-========================= */
+// =====================================
+// LOGGED-IN USER
+// =====================================
 
 const savedUser = localStorage.getItem("user");
 
@@ -8,242 +8,201 @@ if (savedUser) {
 
     const user = JSON.parse(savedUser);
 
-    document.getElementById("welcomeUser").textContent =
-        "Welcome, " + user.name;
+    const welcomeUser = document.getElementById("welcomeUser");
+    const userName = document.getElementById("userName");
+    const userEmail = document.getElementById("userEmail");
 
-    document.getElementById("userName").textContent =
-        user.name;
+    if (welcomeUser) {
+        welcomeUser.textContent = "Welcome, " + user.name;
+    }
 
-    document.getElementById("userEmail").textContent =
-        user.email;
+    if (userName) {
+        userName.textContent = user.name;
+    }
+
+    if (userEmail) {
+        userEmail.textContent = user.email;
+    }
 
 } else {
 
-    // No user logged in
     window.location.href = "login.html";
-
 }
-const controlMessage = document.getElementById("controlMessage");
-
-const forwardBtn = document.getElementById("forwardBtn");
-const backwardBtn = document.getElementById("backwardBtn");
-const leftBtn = document.getElementById("leftBtn");
-const rightBtn = document.getElementById("rightBtn");
-const stopBtn = document.getElementById("stopBtn");
 
 
-// ===============================
-// Robot Control Function
-// ===============================
+// =====================================
+// ROBODOG API
+// =====================================
+
+const API_URL = "http://127.0.0.1:5000/api/robot";
+
+
+// =====================================
+// COMMAND MESSAGE
+// =====================================
+
+function getCommandMessage(command) {
+
+    if (command === "forward") {
+        return "🤖 RoboDog is moving Forward 🚀";
+    }
+
+    if (command === "backward") {
+        return "🤖 RoboDog is moving Backward 🔄";
+    }
+
+    if (command === "left") {
+        return "🤖 RoboDog is turning Left ◀️";
+    }
+
+    if (command === "right") {
+        return "🤖 RoboDog is turning Right ▶️";
+    }
+
+    if (command === "stop") {
+        return "🛑 RoboDog has stopped.";
+    }
+
+    if (command === "patrol") {
+        return "🐕 RoboDog is on Patrol.";
+    }
+
+    return "🤖 RoboDog is ready.";
+}
+
+
+// =====================================
+// SHOW COMMAND MESSAGE
+// =====================================
+
+function showControlMessage(command) {
+
+    const message = document.getElementById("controlMessage");
+
+    if (!message) {
+        return;
+    }
+
+    message.textContent = getCommandMessage(command);
+}
+
+
+// =====================================
+// UPDATE DASHBOARD ROBOT STATE
+// =====================================
+
+function updateDashboardRobotState(data) {
+
+    const command = data.command || "stop";
+
+    // Command message
+    showControlMessage(command);
+
+
+    // Current command
+    const currentCommand =
+        document.getElementById("currentCommand");
+
+    if (currentCommand) {
+        currentCommand.textContent = command;
+    }
+
+
+    // Connection
+    const robotConnection =
+        document.getElementById("robotConnection");
+
+    if (robotConnection) {
+        robotConnection.textContent =
+            data.status || "Offline";
+    }
+
+
+    // Header robot status
+    const robotStatus =
+        document.getElementById("robotStatus");
+
+    if (robotStatus) {
+
+        if (data.status === "online") {
+            robotStatus.textContent = "● Online";
+        } else {
+            robotStatus.textContent = "● Offline";
+        }
+    }
+
+
+    // Battery
+    const batteryLevel =
+        document.getElementById("batteryLevel");
+
+    if (batteryLevel) {
+        batteryLevel.textContent =
+            (data.battery ?? 0) + "%";
+    }
+}
+
+
+// =====================================
+// SEND ROBOT COMMAND
+// =====================================
 
 async function sendRobotCommand(command) {
 
     try {
 
         const response = await fetch(
-            `http://127.0.0.1:5000/api/robot/${command}`,
+            `${API_URL}/${command}`,
             {
-                method: "POST"
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                }
             }
         );
 
         const data = await response.json();
 
-        if (response.ok) {
+        console.log("Command sent:", data);
 
-    controlMessage.textContent =
-        data.message;
 
-    console.log(
-        "Robot Command:",
-        data.command
-    );
+        if (!response.ok) {
 
-    // Update Current Command
-    const currentCommand =
-        document.getElementById("currentCommand");
+            showControlMessage("stop");
 
-    currentCommand.textContent =
-        data.command;
-        
+            const message =
+                document.getElementById("controlMessage");
 
-} else {
+            if (message) {
+                message.textContent =
+                    "❌ Command failed.";
+            }
 
-            controlMessage.textContent =
-                "Robot command failed";
-
+            return;
         }
+
+
+        // Read shared state again
+        await getRobotStatus();
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "Robot Command Error:",
+            error
+        );
 
-        controlMessage.textContent =
-            "Cannot connect to robot backend";
+        const message =
+            document.getElementById("controlMessage");
 
+        if (message) {
+            message.textContent =
+                "❌ Cannot connect to robot backend.";
+        }
     }
 }
 
 
-// ===============================
-// Robot Buttons
-// ===============================
-
-forwardBtn.addEventListener("click", function () {
-
-    sendRobotCommand("forward");
-
-});
-
-
-backwardBtn.addEventListener("click", function () {
-
-    sendRobotCommand("backward");
-
-});
-
-
-leftBtn.addEventListener("click", function () {
-
-    sendRobotCommand("left");
-
-});
-
-
-rightBtn.addEventListener("click", function () {
-
-    sendRobotCommand("right");
-
-});
-
-
-stopBtn.addEventListener("click", function () {
-
-    sendRobotCommand("stop");
-
-});
-
-
-// ===============================
-// Patrol
-// ===============================
-
-const startPatrolBtn =
-    document.getElementById("startPatrolBtn");
-
-const stopPatrolBtn =
-    document.getElementById("stopPatrolBtn");
-
-const patrolStatus =
-    document.getElementById("patrolStatus");
-
-
-// =====================================
-// PATROL CONTROL
-// =====================================
-
-startPatrolBtn.addEventListener("click", async function () {
-
-    try {
-
-        const response = await fetch(
-            "http://127.0.0.1:5000/api/robot/patrol/start",
-            {
-                method: "POST"
-            }
-        );
-
-        const data = await response.json();
-
-        if (response.ok) {
-
-            patrolStatus.textContent =
-                "Active";
-                const now = new Date();
-
-document.getElementById("patrolStarted").textContent =
-    now.toLocaleTimeString();
-
-            console.log(
-                "Patrol Status:",
-                data.patrol_status
-            );
-
-        } else {
-
-            patrolStatus.textContent =
-                "Failed to start";
-
-        }
-
-    } catch (error) {
-
-        console.error(error);
-
-        patrolStatus.textContent =
-            "Backend connection failed";
-    }
-
-});
-
-
-stopPatrolBtn.addEventListener("click", async function () {
-
-    try {
-
-        const response = await fetch(
-            "http://127.0.0.1:5000/api/robot/patrol/stop",
-            {
-                method: "POST"
-            }
-        );
-
-        const data = await response.json();
-
-        if (response.ok) {
-
-            patrolStatus.textContent =
-                "Inactive";
-             document.getElementById("patrolStarted").textContent =
-    "Not Started";   
-
-            console.log(
-                "Patrol Status:",
-                data.patrol_status
-            );
-
-        } else {
-
-            patrolStatus.textContent =
-                "Failed to stop";
-
-        }
-
-    } catch (error) {
-
-        console.error(error);
-
-        patrolStatus.textContent =
-            "Backend connection failed";
-    }
-
-});
-
-
-// ===============================
-// Logout
-// ===============================
-
-const logoutBtn =
-    document.getElementById("logoutBtn");
-
-logoutBtn.addEventListener("click", function () {
-
-    localStorage.removeItem("user");
-
-    window.location.href = "login.html";
-
-});
 // =====================================
 // ROBOT STATUS
 // =====================================
@@ -253,38 +212,25 @@ async function getRobotStatus() {
     try {
 
         const response = await fetch(
-            "http://127.0.0.1:5000/api/robot/status"
+            `${API_URL}/status`
         );
 
         const data = await response.json();
 
-
-        if (response.ok) {
-
-            // Robot connection status
-            const robotConnection =
-                document.getElementById("robotConnection");
-
-            robotConnection.textContent =
-                data.status;
+        console.log(
+            "Shared Robot State:",
+            data
+        );
 
 
-            // Current robot command
-            const currentCommand =
-                document.getElementById("currentCommand");
-
-            currentCommand.textContent =
-                data.command;
-
-
-            // Battery level
-            const batteryLevel =
-                document.getElementById("batteryLevel");
-
-            batteryLevel.textContent =
-                data.battery + "%";
-
+        if (!response.ok) {
+            throw new Error(
+                "Robot status request failed"
+            );
         }
+
+
+        updateDashboardRobotState(data);
 
     } catch (error) {
 
@@ -293,29 +239,135 @@ async function getRobotStatus() {
             error
         );
 
+
         const robotConnection =
             document.getElementById("robotConnection");
 
-        robotConnection.textContent =
-            "Offline";
+        if (robotConnection) {
+            robotConnection.textContent = "Offline";
+        }
+
+
+        const robotStatus =
+            document.getElementById("robotStatus");
+
+        if (robotStatus) {
+            robotStatus.textContent = "● Offline";
+        }
+
 
         const currentCommand =
             document.getElementById("currentCommand");
 
-        currentCommand.textContent =
-            "Unknown";
+        if (currentCommand) {
+            currentCommand.textContent = "Unknown";
+        }
+
 
         const batteryLevel =
             document.getElementById("batteryLevel");
 
-        batteryLevel.textContent =
-            "Unknown";
+        if (batteryLevel) {
+            batteryLevel.textContent = "Unknown";
+        }
     }
 }
 
-getRobotStatus();
+
 // =====================================
-// INTRUDER DETECTION STATUS
+// ROBOT CONTROL BUTTONS
+// =====================================
+
+const forwardBtn =
+    document.getElementById("forwardBtn");
+
+const backwardBtn =
+    document.getElementById("backwardBtn");
+
+const leftBtn =
+    document.getElementById("leftBtn");
+
+const rightBtn =
+    document.getElementById("rightBtn");
+
+const stopBtn =
+    document.getElementById("stopBtn");
+
+
+if (forwardBtn) {
+
+    forwardBtn.addEventListener(
+        "click",
+        function () {
+            sendRobotCommand("forward");
+        }
+    );
+}
+
+
+if (backwardBtn) {
+
+    backwardBtn.addEventListener(
+        "click",
+        function () {
+            sendRobotCommand("backward");
+        }
+    );
+}
+
+
+if (leftBtn) {
+
+    leftBtn.addEventListener(
+        "click",
+        function () {
+            sendRobotCommand("left");
+        }
+    );
+}
+
+
+if (rightBtn) {
+
+    rightBtn.addEventListener(
+        "click",
+        function () {
+            sendRobotCommand("right");
+        }
+    );
+}
+
+
+if (stopBtn) {
+
+    stopBtn.addEventListener(
+        "click",
+        function () {
+            sendRobotCommand("stop");
+        }
+    );
+}
+
+
+// =====================================
+// FIRST ROBOT STATUS LOAD
+// =====================================
+
+getRobotStatus();
+
+
+// =====================================
+// AUTOMATIC ROBOT STATUS SYNC
+// =====================================
+
+setInterval(
+    getRobotStatus,
+    1000
+);
+
+
+// =====================================
+// INTRUDER STATUS
 // =====================================
 
 async function getIntruderStatus() {
@@ -323,21 +375,35 @@ async function getIntruderStatus() {
     try {
 
         const response = await fetch(
-            "http://127.0.0.1:5000/api/robot/intruder/status"
+            `${API_URL}/intruder/status`
         );
 
         const data = await response.json();
 
         if (response.ok) {
 
-            document.getElementById("intruderStatus").textContent =
-                data.status;
+            const status =
+                document.getElementById("intruderStatus");
 
-            document.getElementById("intruderCount").textContent =
-                data.count;
+            const count =
+                document.getElementById("intruderCount");
 
-            document.getElementById("suspicionRate").textContent =
-                data.suspicion_rate + "%";
+            const suspicion =
+                document.getElementById("suspicionRate");
+
+
+            if (status) {
+                status.textContent = data.status;
+            }
+
+            if (count) {
+                count.textContent = data.count;
+            }
+
+            if (suspicion) {
+                suspicion.textContent =
+                    data.suspicion_rate + "%";
+            }
         }
 
     } catch (error) {
@@ -346,23 +412,14 @@ async function getIntruderStatus() {
             "Intruder Status Error:",
             error
         );
-
-        document.getElementById("intruderStatus").textContent =
-            "Offline";
-
-        document.getElementById("intruderCount").textContent =
-            "0";
-
-        document.getElementById("suspicionRate").textContent =
-            "0%";
     }
 }
 
-
-// Get intruder status when dashboard loads
 getIntruderStatus();
+
+
 // =====================================
-// INTRUDER TEST CONTROL
+// INTRUDER TEST
 // =====================================
 
 const testIntruderBtn =
@@ -372,78 +429,102 @@ const resetIntruderBtn =
     document.getElementById("resetIntruderBtn");
 
 
-// Test Intruder
-testIntruderBtn.addEventListener("click", async function () {
+if (testIntruderBtn) {
 
-    try {
+    testIntruderBtn.addEventListener(
+        "click",
+        async function () {
 
-        const response = await fetch(
-            "http://127.0.0.1:5000/api/robot/intruder/test",
-            {
-                method: "POST"
+            try {
+
+                const response = await fetch(
+                    `${API_URL}/intruder/test`,
+                    {
+                        method: "POST"
+                    }
+                );
+
+                const data =
+                    await response.json();
+
+
+                if (response.ok) {
+
+                    document.getElementById(
+                        "intruderStatus"
+                    ).textContent = data.status;
+
+                    document.getElementById(
+                        "intruderCount"
+                    ).textContent = data.count;
+
+                    document.getElementById(
+                        "suspicionRate"
+                    ).textContent =
+                        data.suspicion_rate + "%";
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Intruder Test Error:",
+                    error
+                );
             }
-        );
-
-        const data = await response.json();
-
-        if (response.ok) {
-
-            document.getElementById("intruderStatus").textContent =
-                data.status;
-
-            document.getElementById("intruderCount").textContent =
-                data.count;
-
-            document.getElementById("suspicionRate").textContent =
-                data.suspicion_rate + "%";
-
         }
-
-    } catch (error) {
-
-        console.error("Intruder Test Error:", error);
-
-    }
-
-});
+    );
+}
 
 
-// Reset Intruder
-resetIntruderBtn.addEventListener("click", async function () {
+if (resetIntruderBtn) {
 
-    try {
+    resetIntruderBtn.addEventListener(
+        "click",
+        async function () {
 
-        const response = await fetch(
-            "http://127.0.0.1:5000/api/robot/intruder/reset",
-            {
-                method: "POST"
+            try {
+
+                const response = await fetch(
+                    `${API_URL}/intruder/reset`,
+                    {
+                        method: "POST"
+                    }
+                );
+
+                const data =
+                    await response.json();
+
+
+                if (response.ok) {
+
+                    document.getElementById(
+                        "intruderStatus"
+                    ).textContent = data.status;
+
+                    document.getElementById(
+                        "intruderCount"
+                    ).textContent = data.count;
+
+                    document.getElementById(
+                        "suspicionRate"
+                    ).textContent =
+                        data.suspicion_rate + "%";
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Intruder Reset Error:",
+                    error
+                );
             }
-        );
-
-        const data = await response.json();
-
-        if (response.ok) {
-
-            document.getElementById("intruderStatus").textContent =
-                data.status;
-
-            document.getElementById("intruderCount").textContent =
-                data.count;
-
-            document.getElementById("suspicionRate").textContent =
-                data.suspicion_rate + "%";
-
         }
+    );
+}
 
-    } catch (error) {
 
-        console.error("Intruder Reset Error:", error);
-
-    }
-
-});
 // =====================================
-// DISASTER DETECTION STATUS
+// DISASTER STATUS
 // =====================================
 
 async function getDisasterStatus() {
@@ -451,21 +532,44 @@ async function getDisasterStatus() {
     try {
 
         const response = await fetch(
-            "http://127.0.0.1:5000/api/robot/disaster/status"
+            `${API_URL}/disaster/status`
         );
 
-        const data = await response.json();
+        const data =
+            await response.json();
+
 
         if (response.ok) {
 
-            document.getElementById("disasterDetectionStatus").textContent =
-                data.status;
+            const status =
+                document.getElementById(
+                    "disasterDetectionStatus"
+                );
 
-            document.getElementById("disasterType").textContent =
-                data.type;
+            const type =
+                document.getElementById(
+                    "disasterType"
+                );
 
-            document.getElementById("disasterConfidence").textContent =
-                data.confidence + "%";
+            const confidence =
+                document.getElementById(
+                    "disasterConfidence"
+                );
+
+
+            if (status) {
+                status.textContent = data.status;
+            }
+
+            if (type) {
+                type.textContent =
+                    data.type || "None";
+            }
+
+            if (confidence) {
+                confidence.textContent =
+                    data.confidence + "%";
+            }
         }
 
     } catch (error) {
@@ -474,130 +578,140 @@ async function getDisasterStatus() {
             "Disaster Status Error:",
             error
         );
-
-        document.getElementById("disasterDetectionStatus").textContent =
-            "Offline";
-
-        document.getElementById("disasterType").textContent =
-            "Unknown";
-
-        document.getElementById("disasterConfidence").textContent =
-            "0%";
     }
 }
 
-
-// Get disaster status when dashboard loads
 getDisasterStatus();
+
+
 // =====================================
-// DISASTER TEST & RESET
+// DISASTER TEST
 // =====================================
 
 const testDisasterBtn =
-    document.getElementById("testDisasterBtn");
+    document.getElementById(
+        "testDisasterBtn"
+    );
 
 const resetDisasterBtn =
-    document.getElementById("resetDisasterBtn");
+    document.getElementById(
+        "resetDisasterBtn"
+    );
 
 
-// Test Disaster
-testDisasterBtn.addEventListener("click", async function () {
+if (testDisasterBtn) {
 
-    try {
+    testDisasterBtn.addEventListener(
+        "click",
+        async function () {
 
-        const response = await fetch(
-            "http://127.0.0.1:5000/api/robot/disaster/test",
-            {
-                method: "POST"
+            try {
+
+                const response = await fetch(
+                    `${API_URL}/disaster/test`,
+                    {
+                        method: "POST"
+                    }
+                );
+
+                const data =
+                    await response.json();
+
+
+                if (response.ok) {
+
+                    document.getElementById(
+                        "disasterDetectionStatus"
+                    ).textContent =
+                        data.status;
+
+                    document.getElementById(
+                        "disasterType"
+                    ).textContent =
+                        data.type;
+
+                    document.getElementById(
+                        "disasterConfidence"
+                    ).textContent =
+                        data.confidence + "%";
+
+                    document.getElementById(
+                        "disasterStatus"
+                    ).textContent =
+                        data.status;
+
+                    console.log(
+                        "Disaster:",
+                        data
+                    );
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Disaster Test Error:",
+                    error
+                );
             }
-        );
-
-        const data = await response.json();
-
-        if (response.ok) {
-
-            document.getElementById(
-                "disasterDetectionStatus"
-            ).textContent = data.status;
-
-            document.getElementById(
-                "disasterType"
-            ).textContent = data.type;
-
-            document.getElementById(
-                "disasterConfidence"
-            ).textContent = data.confidence + "%";
-
-            document.getElementById(
-                "disasterStatus"
-            ).textContent = data.status;
-
-            console.log("Disaster:", data);
-
-        } else {
-
-            console.error(
-                "Disaster test failed"
-            );
-
         }
-
-    } catch (error) {
-
-        console.error(
-            "Disaster Test Error:",
-            error
-        );
-
-    }
-
-});
+    );
+}
 
 
-// Reset Disaster
-resetDisasterBtn.addEventListener("click", async function () {
+if (resetDisasterBtn) {
 
-    try {
+    resetDisasterBtn.addEventListener(
+        "click",
+        async function () {
 
-        const response = await fetch(
-            "http://127.0.0.1:5000/api/robot/disaster/reset",
-            {
-                method: "POST"
+            try {
+
+                const response = await fetch(
+                    `${API_URL}/disaster/reset`,
+                    {
+                        method: "POST"
+                    }
+                );
+
+                const data =
+                    await response.json();
+
+
+                if (response.ok) {
+
+                    document.getElementById(
+                        "disasterDetectionStatus"
+                    ).textContent =
+                        data.status;
+
+                    document.getElementById(
+                        "disasterType"
+                    ).textContent =
+                        data.type || "None";
+
+                    document.getElementById(
+                        "disasterConfidence"
+                    ).textContent =
+                        data.confidence + "%";
+
+                    document.getElementById(
+                        "disasterStatus"
+                    ).textContent =
+                        data.status;
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Disaster Reset Error:",
+                    error
+                );
             }
-        );
-
-        const data = await response.json();
-
-        if (response.ok) {
-
-            document.getElementById(
-                "disasterDetectionStatus"
-            ).textContent = data.status;
-
-            document.getElementById(
-                "disasterType"
-            ).textContent = data.type;
-
-            document.getElementById(
-                "disasterConfidence"
-            ).textContent = data.confidence + "%";
-
-            document.getElementById(
-                "disasterStatus"
-            ).textContent = data.status;
-
         }
+    );
+}
 
-    } catch (error) {
 
-        console.error(
-            "Disaster Reset Error:",
-            error
-        );
-
-    }
-
-});
 // =====================================
 // ALERT COUNT
 // =====================================
@@ -607,65 +721,233 @@ async function getAlertCount() {
     try {
 
         const response = await fetch(
-            "http://127.0.0.1:5000/api/robot/alerts"
+            `${API_URL}/alerts/count`
         );
 
-        const data = await response.json();
+        const data =
+            await response.json();
+
 
         if (response.ok) {
 
-            document.getElementById("alertCount").textContent =
-                data.count;
+            const alertCount =
+                document.getElementById(
+                    "alertCount"
+                );
 
+            if (alertCount) {
+                alertCount.textContent =
+                    data.count;
+            }
         }
 
     } catch (error) {
 
         console.error(
-            "Alert Error:",
+            "Alert Count Error:",
             error
         );
-
-        document.getElementById("alertCount").textContent =
-            "0";
     }
 }
 
 getAlertCount();
+
+
 // =====================================
-// PATROL ROUTE
+// PATROL INFORMATION
 // =====================================
 
-async function getPatrolRoute() {
+const patrolRoute = [
+    "Main Gate",
+    "Parking Area",
+    "Building A",
+    "Building B"
+];
+
+let currentPatrolIndex = 0;
+
+
+// Show patrol route
+function showPatrolRoute() {
+
+    const patrolRouteElement =
+        document.getElementById(
+            "patrolRoute"
+        );
+
+    if (patrolRouteElement) {
+
+        patrolRouteElement.textContent =
+            patrolRoute.join(" → ");
+    }
+}
+
+showPatrolRoute();
+
+
+// =====================================
+// PATROL STATUS
+// =====================================
+
+async function getPatrolStatus() {
 
     try {
 
         const response = await fetch(
-            "http://127.0.0.1:5000/api/robot/patrol/route"
+            `${API_URL}/patrol/status`
         );
 
-        const data = await response.json();
+        const data =
+            await response.json();
+
 
         if (response.ok) {
 
-            document.getElementById("patrolRoute").textContent =
-                data.route.join(" → ");
+            const patrolStatus =
+                document.getElementById(
+                    "patrolStatus"
+                );
 
+            if (patrolStatus) {
+
+                patrolStatus.textContent =
+                    data.patrol_status;
+            }
         }
 
     } catch (error) {
 
         console.error(
-            "Patrol Route Error:",
+            "Patrol Status Error:",
             error
         );
-
-        document.getElementById("patrolRoute").textContent =
-            "Unable to load route";
     }
 }
 
-getPatrolRoute();
+getPatrolStatus();
+
+
+// =====================================
+// PATROL START
+// =====================================
+
+const startPatrolBtn =
+    document.getElementById(
+        "startPatrolBtn"
+    );
+
+const stopPatrolBtn =
+    document.getElementById(
+        "stopPatrolBtn"
+    );
+
+
+if (startPatrolBtn) {
+
+    startPatrolBtn.addEventListener(
+        "click",
+        async function () {
+
+            try {
+
+                const response = await fetch(
+                    `${API_URL}/patrol/start`,
+                    {
+                        method: "POST"
+                    }
+                );
+
+                const data =
+                    await response.json();
+
+
+                if (response.ok) {
+
+                    const patrolStatus =
+                        document.getElementById(
+                            "patrolStatus"
+                        );
+
+                    if (patrolStatus) {
+                        patrolStatus.textContent =
+                            data.patrol_status;
+                    }
+
+                    showControlMessage("patrol");
+
+                    console.log(
+                        "Patrol started:",
+                        data
+                    );
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Patrol Start Error:",
+                    error
+                );
+            }
+        }
+    );
+}
+
+
+// =====================================
+// PATROL STOP
+// =====================================
+
+if (stopPatrolBtn) {
+
+    stopPatrolBtn.addEventListener(
+        "click",
+        async function () {
+
+            try {
+
+                const response = await fetch(
+                    `${API_URL}/patrol/stop`,
+                    {
+                        method: "POST"
+                    }
+                );
+
+                const data =
+                    await response.json();
+
+
+                if (response.ok) {
+
+                    const patrolStatus =
+                        document.getElementById(
+                            "patrolStatus"
+                        );
+
+                    if (patrolStatus) {
+                        patrolStatus.textContent =
+                            data.patrol_status;
+                    }
+
+                    showControlMessage("stop");
+
+                    console.log(
+                        "Patrol stopped:",
+                        data
+                    );
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Patrol Stop Error:",
+                    error
+                );
+            }
+        }
+    );
+}
+
+
 // =====================================
 // PATROL LOCATION
 // =====================================
@@ -674,22 +956,54 @@ async function getPatrolLocation() {
 
     try {
 
-        const response = await fetch(
-            "http://127.0.0.1:5000/api/robot/patrol/location"
-        );
+        const locationResponse =
+            await fetch(
+                `${API_URL}/location`
+            );
 
-        const data = await response.json();
+        const locationData =
+            await locationResponse.json();
 
-        if (response.ok) {
 
-            document.getElementById("currentStop").textContent =
-                data.current_stop;
+        if (locationResponse.ok) {
 
-            document.getElementById("nextStop").textContent =
-                data.next_stop;
+            const currentStop =
+                document.getElementById(
+                    "currentStop"
+                );
 
-            document.getElementById("patrolProgress").textContent =
-                data.progress + "%";
+            if (currentStop) {
+
+                currentStop.textContent =
+                    locationData.location;
+            }
+        }
+
+
+        const nextResponse =
+            await fetch(
+                `${API_URL}/next-stop`
+            );
+
+        const nextData =
+            await nextResponse.json();
+
+
+        if (nextResponse.ok) {
+
+            const nextStop =
+                document.getElementById(
+                    "nextStop"
+                );
+
+            if (nextStop) {
+
+                nextStop.textContent =
+                    nextData.name +
+                    " (" +
+                    nextData.distance +
+                    ")";
+            }
         }
 
     } catch (error) {
@@ -698,136 +1012,218 @@ async function getPatrolLocation() {
             "Patrol Location Error:",
             error
         );
-
     }
 }
 
 getPatrolLocation();
+
+
 // =====================================
-// NEXT PATROL STOP
+// NEXT STOP
 // =====================================
 
 const nextStopBtn =
-    document.getElementById("nextStopBtn");
+    document.getElementById(
+        "nextStopBtn"
+    );
 
-nextStopBtn.addEventListener("click", async function () {
 
-    try {
+if (nextStopBtn) {
 
-        const response = await fetch(
-            "http://127.0.0.1:5000/api/robot/patrol/next",
-            {
-                method: "POST"
+    nextStopBtn.addEventListener(
+        "click",
+        async function () {
+
+            currentPatrolIndex++;
+
+            if (
+                currentPatrolIndex >=
+                patrolRoute.length
+            ) {
+                currentPatrolIndex = 0;
             }
-        );
 
-        const data = await response.json();
 
-        if (response.ok) {
+            const currentStop =
+                document.getElementById(
+                    "currentStop"
+                );
 
-            document.getElementById("currentStop").textContent =
-                data.current_stop;
+            if (currentStop) {
 
-            document.getElementById("nextStop").textContent =
-                data.next_stop;
+                currentStop.textContent =
+                    patrolRoute[
+                        currentPatrolIndex
+                    ];
+            }
 
-            document.getElementById("patrolProgress").textContent =
-                data.progress + "%";
-updateRobotLocation(data.current_stop);
-            console.log("Patrol moved:", data);
 
+            const progress =
+                document.getElementById(
+                    "patrolProgress"
+                );
+
+            if (progress) {
+
+                const percentage =
+                    Math.round(
+                        (
+                            currentPatrolIndex /
+                            (patrolRoute.length - 1)
+                        ) * 100
+                    );
+
+                progress.textContent =
+                    percentage + "%";
+            }
+
+
+            updateRobotLocation(
+                patrolRoute[
+                    currentPatrolIndex
+                ]
+            );
+
+
+            console.log(
+                "Patrol moved to:",
+                patrolRoute[
+                    currentPatrolIndex
+                ]
+            );
         }
+    );
+}
 
-    } catch (error) {
 
-        console.error(
-            "Next Stop Error:",
-            error
+// =====================================
+// MAP
+// =====================================
+
+let map = null;
+let robotMarker = null;
+
+
+if (typeof L !== "undefined") {
+
+    map = L.map("map")
+        .setView(
+            [22.5726, 88.3639],
+            16
         );
 
-    }
 
-});
+    L.tileLayer(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+            attribution:
+                "&copy; OpenStreetMap contributors"
+        }
+    ).addTo(map);
+
+
+    // Patrol locations
+
+    const mainGate =
+        [22.5726, 88.3639];
+
+    const parkingArea =
+        [22.5732, 88.3650];
+
+    const buildingA =
+        [22.5740, 88.3642];
+
+    const buildingB =
+        [22.5745, 88.3628];
+
+
+    // Markers
+
+    L.marker(mainGate)
+        .addTo(map)
+        .bindPopup("🏁 Main Gate");
+
+
+    L.marker(parkingArea)
+        .addTo(map)
+        .bindPopup("🅿️ Parking Area");
+
+
+    L.marker(buildingA)
+        .addTo(map)
+        .bindPopup("🏢 Building A");
+
+
+    L.marker(buildingB)
+        .addTo(map)
+        .bindPopup("🏢 Building B");
+
+
+    // Route
+
+    const route = [
+        mainGate,
+        parkingArea,
+        buildingA,
+        buildingB,
+        mainGate
+    ];
+
+
+    L.polyline(route)
+        .addTo(map);
+
+
+    // RoboDog marker
+
+    robotMarker =
+        L.marker(mainGate)
+            .addTo(map)
+            .bindPopup("🐕 RoboDog")
+            .openPopup();
+}
+
+
 // =====================================
-// PATROL MAP
+// UPDATE ROBODOG MAP LOCATION
 // =====================================
 
-const map = L.map("map").setView([22.5726, 88.3639], 16);
-
-L.tileLayer(
-    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-    {
-        attribution: "&copy; OpenStreetMap contributors"
-    }
-).addTo(map);
-
-
-// Patrol Locations
-const mainGate = [22.5726, 88.3639];
-const parkingArea = [22.5732, 88.3650];
-const buildingA = [22.5740, 88.3642];
-const buildingB = [22.5745, 88.3628];
-
-
-// Markers
-L.marker(mainGate)
-    .addTo(map)
-    .bindPopup("🏁 Main Gate");
-
-L.marker(parkingArea)
-    .addTo(map)
-    .bindPopup("🅿️ Parking Area");
-
-L.marker(buildingA)
-    .addTo(map)
-    .bindPopup("🏢 Building A");
-
-L.marker(buildingB)
-    .addTo(map)
-    .bindPopup("🏢 Building B");
-
-
-// Patrol Route
-const route = [
-    mainGate,
-    parkingArea,
-    buildingA,
-    buildingB,
-    mainGate
-];
-
-L.polyline(route).addTo(map);
-// =====================================
-// ROBODOG MAP MARKER
-// =====================================
-
-let robotMarker = L.marker(mainGate)
-    .addTo(map)
-    .bindPopup("🐕 RoboDog")
-    .openPopup();
-
-
-// Move RoboDog marker
 function updateRobotLocation(stop) {
 
-    if (stop === "Main Gate") {
-        robotMarker.setLatLng(mainGate);
+    if (!robotMarker || !map) {
+        return;
     }
 
-    else if (stop === "Parking Area") {
-        robotMarker.setLatLng(parkingArea);
-    }
 
-    else if (stop === "Building A") {
-        robotMarker.setLatLng(buildingA);
-    }
+    const locations = {
 
-    else if (stop === "Building B") {
-        robotMarker.setLatLng(buildingB);
-    }
+        "Main Gate":
+            [22.5726, 88.3639],
 
-    map.panTo(robotMarker.getLatLng());
+        "Parking Area":
+            [22.5732, 88.3650],
+
+        "Building A":
+            [22.5740, 88.3642],
+
+        "Building B":
+            [22.5745, 88.3628]
+    };
+
+
+    if (locations[stop]) {
+
+        robotMarker.setLatLng(
+            locations[stop]
+        );
+
+        map.panTo(
+            locations[stop]
+        );
+    }
 }
+
+
 // =====================================
 // ALERT HISTORY
 // =====================================
@@ -836,18 +1232,29 @@ async function getAlertHistory() {
 
     try {
 
-        const response = await fetch(
-            "http://127.0.0.1:5000/api/robot/alerts/history"
-        );
+        const response =
+            await fetch(
+                `${API_URL}/alerts`
+            );
 
-        const data = await response.json();
+        const data =
+            await response.json();
+
 
         const alertHistory =
-            document.getElementById("alertHistory");
+            document.getElementById(
+                "alertHistory"
+            );
+
+
+        if (!alertHistory) {
+            return;
+        }
+
 
         if (response.ok) {
 
-            if (data.alerts.length === 0) {
+            if (data.length === 0) {
 
                 alertHistory.innerHTML =
                     "<p>No alerts yet.</p>";
@@ -855,12 +1262,15 @@ async function getAlertHistory() {
                 return;
             }
 
+
             alertHistory.innerHTML = "";
 
-            data.alerts.forEach(function(alert) {
+
+            data.forEach(function (alert) {
 
                 const alertItem =
                     document.createElement("div");
+
 
                 alertItem.innerHTML = `
                     <p>
@@ -869,10 +1279,11 @@ async function getAlertHistory() {
                     </p>
                 `;
 
-                alertHistory.appendChild(alertItem);
 
+                alertHistory.appendChild(
+                    alertItem
+                );
             });
-
         }
 
     } catch (error) {
@@ -882,9 +1293,46 @@ async function getAlertHistory() {
             error
         );
 
-        document.getElementById("alertHistory").innerHTML =
-            "<p>Unable to load alert history.</p>";
+
+        const alertHistory =
+            document.getElementById(
+                "alertHistory"
+            );
+
+
+        if (alertHistory) {
+
+            alertHistory.innerHTML =
+                "<p>Unable to load alert history.</p>";
+        }
     }
 }
 
 getAlertHistory();
+
+
+// =====================================
+// LOGOUT
+// =====================================
+
+const logoutBtn =
+    document.getElementById(
+        "logoutBtn"
+    );
+
+
+if (logoutBtn) {
+
+    logoutBtn.addEventListener(
+        "click",
+        function () {
+
+            localStorage.removeItem(
+                "user"
+            );
+
+            window.location.href =
+                "login.html";
+        }
+    );
+}

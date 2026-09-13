@@ -2,58 +2,726 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>RoboDog - Login</title>
+    <title>RoboDog | Smart Patrol</title>
 
     <link rel="stylesheet" href="style.css">
+
 </head>
 
-<body>
 
-    <div class="container">
+<body class="login-page">
 
-        <h1>🐕 RoboDog</h1>
-        <h2>Login</h2>
 
-        <form id="loginForm">
+    <!-- =========================================
+         BACKGROUND EFFECT
+    ========================================== -->
 
-            <input
-                type="email"
-                id="email"
-                placeholder="Enter your email"
-                required
-            >
+    <div class="tech-grid"></div>
 
-            <input
-                type="password"
-                id="password"
-                placeholder="Enter password"
-                required
-            >
+    <div class="glow glow-one"></div>
 
-            <!-- Forgot Password -->
-            <p class="forgot-link">
-                <a href="forgot-password.html">Forgot Password?</a>
+    <div class="glow glow-two"></div>
+
+
+
+    <!-- =========================================
+         LEFT SIDE
+    ========================================== -->
+
+    <section class="login-left">
+
+
+        <!-- BRAND -->
+
+        <div class="login-brand">
+
+            <div class="login-logo">
+                🐕
+            </div>
+
+            <div>
+
+                <h1>
+                    Robo<span>Dog</span>
+                </h1>
+
+                <p>
+                    AI-POWERED SMART PATROL
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- MAIN HERO -->
+
+        <div class="hero-content">
+
+
+            <!-- SYSTEM STATUS -->
+
+            
+
+
+            <!-- HEADING -->
+
+            <h2>
+
+                Smart Technology.
+
+                <br>
+
+                <span>Safer Communities.</span>
+
+            </h2>
+
+
+
+            <p class="hero-description">
+
+                An intelligent robotic patrol system designed
+                to monitor surroundings, detect threats and
+                keep your community safer.
+
             </p>
 
-            <button type="submit">
-                Login
-            </button>
 
-        </form>
 
-        <p id="message"></p>
+            <!-- ROBOT VISUAL -->
 
-        <p class="register-link">
-            Don't have an account?
-            <a href="index.html">Register here</a>
+            <div class="robot-display">
+
+                <div class="robot-ring ring-one"></div>
+
+                <div class="robot-ring ring-two"></div>
+
+                <div class="robot-circle">
+
+                    🐕‍🦺
+
+                </div>
+
+                <div class="scan-line"></div>
+
+            </div>
+
+
+
+            <!-- =================================
+                 INTERACTIVE FEATURES
+            ================================== -->
+
+            <div class="feature-grid">
+
+
+
+                <!-- =================================
+                     AI SECURITY
+                ================================== -->
+
+                <details class="feature-card">
+
+
+                    <summary>
+
+
+                        <div class="feature-icon">
+
+                            🛡️
+
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                AI Security
+                            </strong>
+
+                            <small>
+                                Smart threat detection
+                            </small>
+
+                        </div>
+
+
+                        <span class="feature-arrow">
+                            +
+                        </span>
+
+
+                    </summary>
+
+
+                    <div class="feature-info">
+
+                        <h4>
+                            AI-Powered Security
+                        </h4>
+
+                        <p>
+
+                            RoboDog can identify suspicious
+                            activities and potential intruders
+                            using intelligent security detection.
+
+                        </p>
+
+
+                        <div class="info-points">
+
+                            <span>✓ Intruder Detection</span>
+
+                            <span>✓ Suspicious Activity</span>
+
+                            <span>✓ Security Monitoring</span>
+
+                        </div>
+
+                    </div>
+
+
+                </details>
+
+
+
+                <!-- =================================
+                     SMART PATROL
+                ================================== -->
+
+                <details class="feature-card">
+
+
+                    <summary>
+
+
+                        <div class="feature-icon">
+
+                            📍
+
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                Smart Patrol
+                            </strong>
+
+                            <small>
+                                Intelligent route monitoring
+                            </small>
+
+                        </div>
+
+
+                        <span class="feature-arrow">
+                            +
+                        </span>
+
+
+                    </summary>
+
+
+                    <div class="feature-info">
+
+                        <h4>
+                            Intelligent Patrol System
+                        </h4>
+
+                        <p>
+
+                            RoboDog can follow predefined
+                            patrol routes and monitor selected
+                            areas automatically.
+
+                        </p>
+
+
+                        <div class="info-points">
+
+                            <span>✓ Predefined Routes</span>
+
+                            <span>✓ Patrol Status</span>
+
+                            <span>✓ Area Monitoring</span>
+
+                        </div>
+
+                    </div>
+
+
+                </details>
+
+
+
+                <!-- =================================
+                     INSTANT ALERTS
+                ================================== -->
+
+                <details class="feature-card">
+
+
+                    <summary>
+
+
+                        <div class="feature-icon">
+
+                            🚨
+
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                Instant Alerts
+                            </strong>
+
+                            <small>
+                                Immediate event notification
+                            </small>
+
+                        </div>
+
+
+                        <span class="feature-arrow">
+                            +
+                        </span>
+
+
+                    </summary>
+
+
+                    <div class="feature-info">
+
+                        <h4>
+                            Real-Time Security Alerts
+                        </h4>
+
+                        <p>
+
+                            Important security or disaster
+                            events can generate alerts so that
+                            the operator can respond quickly.
+
+                        </p>
+
+
+                        <div class="info-points">
+
+                            <span>✓ Intruder Alerts</span>
+
+                            <span>✓ Disaster Alerts</span>
+
+                            <span>✓ Alert History</span>
+
+                        </div>
+
+                    </div>
+
+
+                </details>
+
+
+
+                <!-- =================================
+                     LIVE MONITORING
+                ================================== -->
+
+                <details class="feature-card">
+
+
+                    <summary>
+
+
+                        <div class="feature-icon">
+
+                            👁️
+
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                Live Monitoring
+                            </strong>
+
+                            <small>
+                                Continuous environment awareness
+                            </small>
+
+                        </div>
+
+
+                        <span class="feature-arrow">
+                            +
+                        </span>
+
+
+                    </summary>
+
+
+                    <div class="feature-info">
+
+                        <h4>
+                            Continuous Monitoring
+                        </h4>
+
+                        <p>
+
+                            The RoboDog control system provides
+                            information about robot status,
+                            patrol activity and security events.
+
+                        </p>
+
+
+                        <div class="info-points">
+
+                            <span>✓ Robot Status</span>
+
+                            <span>✓ Patrol Activity</span>
+
+                            <span>✓ Security Information</span>
+
+                        </div>
+
+                    </div>
+
+
+                </details>
+
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- LEFT FOOTER -->
+
+        <div class="left-footer">
+
+            <span>●</span>
+
+            RoboDog Security Network
+
+            <span class="footer-line"></span>
+
+            2026
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =========================================
+         RIGHT SIDE
+    ========================================== -->
+
+    <section class="login-right">
+
+
+        <div class="login-card">
+
+
+            <!-- SECURE ACCESS -->
+
+            <div class="secure-label">
+
+                🔐 SECURE ACCESS
+
+            </div>
+
+
+
+            <!-- LOGO -->
+
+            <div class="login-card-logo">
+
+
+                <div class="card-logo-icon">
+
+                    🐕
+
+                </div>
+
+
+                <div>
+
+                    <h1>
+
+                        Robo<span>Dog</span>
+
+                    </h1>
+
+                    <p>
+
+                        Smart Patrol System
+
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- HEADING -->
+
+            <h2>
+
+                Welcome Back
+
+            </h2>
+
+
+            <p class="login-subtitle">
+
+                Sign in to access your smart patrol
+                control center.
+
+            </p>
+
+
+
+            <!-- =================================
+                 LOGIN FORM
+            ================================== -->
+
+            <form id="loginForm">
+
+
+
+                <!-- EMAIL -->
+
+                <div class="login-input-group">
+
+
+                    <label for="email">
+
+                        Email Address
+
+                    </label>
+
+
+                    <div class="login-input-wrapper">
+
+
+                        <span class="input-icon">
+
+                            ✉
+
+                        </span>
+
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="Enter your email"
+                            required
+                        >
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- PASSWORD -->
+
+                <div class="login-input-group">
+
+
+                    <label for="password">
+
+                        Password
+
+                    </label>
+
+
+                    <div class="login-input-wrapper">
+
+
+                        <span class="input-icon">
+
+                            🔒
+
+                        </span>
+
+
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Enter your password"
+                            required
+                        >
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- FORGOT PASSWORD -->
+
+                <div class="forgot-row">
+
+                    <a href="forgot-password.html">
+
+                        Forgot Password?
+
+                    </a>
+
+                </div>
+
+
+
+                <!-- LOGIN BUTTON -->
+
+                <button
+                    type="submit"
+                    class="login-submit-btn"
+                >
+
+
+                    <span class="login-arrow">
+
+                        →
+
+                    </span>
+
+
+                    <span>
+
+                        Login to Control Center
+
+                    </span>
+
+
+                </button>
+
+
+            </form>
+
+
+
+            <!-- LOGIN MESSAGE -->
+
+            <p
+                id="message"
+                class="form-message"
+            >
+            </p>
+
+
+
+            <!-- REGISTER DIVIDER -->
+
+            <div class="register-divider">
+
+
+                <span></span>
+
+
+                <p>
+
+                    New to RoboDog?
+
+                </p>
+
+
+                <span></span>
+
+
+            </div>
+
+
+
+            <!-- REGISTER BUTTON -->
+
+            <a
+                href="index.html"
+                class="register-btn"
+            >
+
+
+                <span>
+
+                    ＋
+
+                </span>
+
+
+                Create RoboDog Account
+
+
+            </a>
+
+
+
+            <!-- SECURITY NOTE -->
+
+            <div class="security-note">
+
+
+                <span>
+
+                    🔒
+
+                </span>
+
+
+                Your connection is protected and secure.
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- FOOTER -->
+
+        <p class="login-footer">
+
+            RoboDog Smart Patrol System
+
+            <span>•</span>
+
+            AI &nbsp;|&nbsp; Security &nbsp;|&nbsp; Automation
+
         </p>
 
-    </div>
+
+    </section>
+
+
+
+    <!-- LOGIN JAVASCRIPT -->
 
     <script src="login.js"></script>
 
+
 </body>
+
 </html>

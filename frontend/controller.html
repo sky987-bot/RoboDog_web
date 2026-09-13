@@ -1,12 +1,15 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>RoboDog - Controller</title>
 
@@ -20,7 +23,9 @@
 <div class="app-layout">
 
 
-    <!-- SIDEBAR -->
+    <!-- =====================================
+         SIDEBAR
+    ====================================== -->
 
     <aside class="sidebar">
 
@@ -31,8 +36,15 @@
             </div>
 
             <div>
-                <h2>RoboDog</h2>
-                <span>Smart Guardian</span>
+
+                <h2>
+                    RoboDog
+                </h2>
+
+                <span>
+                    Smart Guardian
+                </span>
+
             </div>
 
         </div>
@@ -45,48 +57,48 @@
             </p>
 
 
-            <a href="dashboard.html"
-               class="nav-link">
-
+            <a
+                href="dashboard.html"
+                class="nav-link"
+            >
                 <span>🏠</span>
                 <span>Dashboard</span>
-
             </a>
 
 
-            <a href="controller.html"
-               class="nav-link active">
-
+            <a
+                href="controller.html"
+                class="nav-link active"
+            >
                 <span>🎮</span>
                 <span>Controller</span>
-
             </a>
 
 
-            <a href="security.html"
-               class="nav-link">
-
+            <a
+                href="security.html"
+                class="nav-link"
+            >
                 <span>🛡️</span>
                 <span>Security</span>
-
             </a>
 
 
-            <a href="patrol.html"
-               class="nav-link">
-
+            <a
+                href="patrol.html"
+                class="nav-link"
+            >
                 <span>🚨</span>
                 <span>Patrol</span>
-
             </a>
 
 
-            <a href="alerts.html"
-               class="nav-link">
-
+            <a
+                href="alerts.html"
+                class="nav-link"
+            >
                 <span>🔔</span>
                 <span>Alerts</span>
-
             </a>
 
 
@@ -95,12 +107,12 @@
             </p>
 
 
-            <a href="login.html"
-               class="nav-link">
-
+            <a
+                href="login.html"
+                class="nav-link"
+            >
                 <span>🚪</span>
                 <span>Logout</span>
-
             </a>
 
         </nav>
@@ -118,12 +130,16 @@
 
 
 
-    <!-- MAIN CONTENT -->
+    <!-- =====================================
+         MAIN CONTENT
+    ====================================== -->
 
     <main class="main-content">
 
 
-        <!-- HEADER -->
+        <!-- =====================================
+             HEADER
+        ====================================== -->
 
         <header class="dashboard-header">
 
@@ -158,7 +174,9 @@
 
 
 
-        <!-- ROBOT INFORMATION -->
+        <!-- =====================================
+             ROBOT INFORMATION
+        ====================================== -->
 
         <section class="card">
 
@@ -182,6 +200,8 @@
             <div class="status-grid">
 
 
+                <!-- ROBOT -->
+
                 <div class="status-card">
 
                     <div class="status-card-icon">
@@ -202,6 +222,8 @@
 
                 </div>
 
+
+                <!-- CONNECTION -->
 
                 <div class="status-card">
 
@@ -224,6 +246,8 @@
                 </div>
 
 
+                <!-- BATTERY -->
+
                 <div class="status-card">
 
                     <div class="status-card-icon">
@@ -244,14 +268,15 @@
 
                 </div>
 
-
             </div>
 
         </section>
 
 
 
-        <!-- CONTROLLER -->
+        <!-- =====================================
+             MOVEMENT CONTROL
+        ====================================== -->
 
         <section class="card">
 
@@ -272,6 +297,7 @@
             </div>
 
 
+
             <div class="control-area">
 
 
@@ -279,7 +305,9 @@
 
                 <button
                     class="control-btn"
-                    id="forwardBtn">
+                    id="forwardBtn"
+                    type="button"
+                >
 
                     <span class="control-icon">
                         ▲
@@ -292,14 +320,19 @@
                 </button>
 
 
-                <!-- MIDDLE -->
+
+                <!-- MIDDLE CONTROLS -->
 
                 <div class="middle-controls">
 
 
+                    <!-- LEFT -->
+
                     <button
                         class="control-btn"
-                        id="leftBtn">
+                        id="leftBtn"
+                        type="button"
+                    >
 
                         <span class="control-icon">
                             ◀
@@ -312,9 +345,14 @@
                     </button>
 
 
+
+                    <!-- STOP -->
+
                     <button
                         class="stop-btn"
-                        id="stopBtn">
+                        id="stopBtn"
+                        type="button"
+                    >
 
                         <span class="control-icon">
                             ■
@@ -327,9 +365,14 @@
                     </button>
 
 
+
+                    <!-- RIGHT -->
+
                     <button
                         class="control-btn"
-                        id="rightBtn">
+                        id="rightBtn"
+                        type="button"
+                    >
 
                         <span class="control-icon">
                             ▶
@@ -345,11 +388,14 @@
                 </div>
 
 
+
                 <!-- BACKWARD -->
 
                 <button
                     class="control-btn"
-                    id="backwardBtn">
+                    id="backwardBtn"
+                    type="button"
+                >
 
                     <span class="control-icon">
                         ▼
@@ -365,50 +411,18 @@
             </div>
 
 
+
+            <!-- =================================
+                 COMMAND MESSAGE
+            ================================== -->
+
             <div
                 class="control-message"
-                id="controlMessage">
-
-                Robot is ready for commands.
-
+                id="controlMessage"
+            >
+                🤖 RoboDog is ready for commands.
             </div>
 
-        </section>
-
-
-
-        <!-- CURRENT COMMAND -->
-
-        <section class="card">
-
-            <div class="section-header">
-
-                <div>
-
-                    <h2>
-                        📡 Current Command
-                    </h2>
-
-                    <p>
-                        Latest command sent to RoboDog
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="status-item">
-
-                <strong>
-                    Command
-                </strong>
-
-                <span id="currentCommand">
-                    stop
-                </span>
-
-            </div>
 
         </section>
 
@@ -418,7 +432,12 @@
 </div>
 
 
-<script src="dashboard.js"></script>
+<!-- =====================================
+     JAVASCRIPT
+====================================== -->
+
+<script src="controller.js"></script>
+
 
 </body>
 

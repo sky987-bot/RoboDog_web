@@ -520,67 +520,15 @@
     src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
 </script>
 
-<!-- Leaflet JS -->
-
-<script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
-</script>
-
 
 <!-- Dashboard JavaScript -->
 
 <script src="dashboard.js"></script>
 
-
-<!-- Patrol Map -->
-
-<script>
-
-    window.addEventListener("load", function () {
-
-        if (typeof L === "undefined") {
-
-            console.error("Leaflet did not load.");
-
-            return;
-
-        }
-
-        const patrolMap = L.map("map").setView(
-            [22.5726, 88.3639],
-            13
-        );
+<script src="patrol.js"></script>
 
 
-        L.tileLayer(
-            "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-            {
-                attribution:
-                    '&copy; OpenStreetMap contributors'
-            }
-        ).addTo(patrolMap);
-
-
-        const robotMarker = L.marker(
-            [22.5726, 88.3639]
-        ).addTo(patrolMap);
-
-
-        robotMarker.bindPopup(
-            "🐕 RoboDog<br>Patrol Location"
-        );
-
-
-        setTimeout(function () {
-
-            patrolMap.invalidateSize();
-
-        }, 300);
-
-    });
-
-</script>
-
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 
 </body>
