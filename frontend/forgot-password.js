@@ -116,7 +116,7 @@ forgotPasswordForm.addEventListener(
         try {
 
             const response = await fetch(
-                "http://127.0.0.1:5000/api/auth/forgot-password",
+                "http://127.0.0.1:5050/api/auth/forgot-password",
                 {
                     method: "POST",
 
