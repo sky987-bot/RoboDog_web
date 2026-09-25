@@ -34,7 +34,7 @@ if (savedUser) {
 // ROBODOG API
 // =====================================
 
-const API_URL = "https://robodog-web.onrender.com";
+const API_URL = "https://robodog-web.onrender.com/api/robot";
 
 
 // =====================================
