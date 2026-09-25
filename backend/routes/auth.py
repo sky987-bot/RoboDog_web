@@ -140,7 +140,7 @@ RoboDog Team
 """
 
         # Send email
-        # mail.send(msg)
+        mail.send(msg)
 
         print(
             "Login confirmation email sent successfully!"
