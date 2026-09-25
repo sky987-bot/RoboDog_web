@@ -9,4 +9,6 @@ db = client["robodog"]
 
 users_collection = db["users"]
 alerts_collection = db["alerts"]
+password_resets_collection = db["password_resets"]
+
 print("MongoDB Connected Successfully!")
